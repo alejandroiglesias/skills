@@ -1,13 +1,13 @@
 ---
 name: night
-description: Night review ritual for integrating the day, identifying completed work, avoided tasks, carryovers, and tomorrow's first priorities.
-version: 0.1.0
+description: Night review ritual for integrating the day and appending a Hermes Night Review to the current Obsidian Daily Note.
+version: 0.2.0
 author: Alejandro García Iglesias
 license: MIT
 platforms: [macos]
 metadata:
   hermes:
-    tags: [personal-os, reflection, shutdown, obsidian, daily-review]
+    tags: [personal-os, reflection, shutdown, obsidian, daily-review, append-only]
     category: personal-os
 ---
 
@@ -29,12 +29,28 @@ The purpose of `/night` is:
 - carryover detection
 - nervous system downshift
 - continuity into tomorrow
+- Daily Note enrichment
 
 The goal is NOT guilt.
 
 The goal is to help the user ask:
 
 > What happened today, what did I avoid, what matters tomorrow, and how can I close the day without keeping loops open?
+
+## Core Principle
+
+Hermes should not replace the user's own Daily Note.
+
+Hermes should act as a reflective mirror and append a clearly separated section.
+
+Hermes should:
+
+- preserve the user's voice
+- close loops
+- identify carryovers
+- propose tomorrow's first action
+- support shutdown
+- never overwrite existing user content
 
 ## Operating Principles
 
@@ -47,6 +63,7 @@ The goal is to help the user ask:
 - Prioritize sleep and shutdown.
 - Detect patterns without moralizing them.
 - Recommend tomorrow's first action if obvious.
+- Prefer append-only behavior when writing to Obsidian.
 
 ## Required Context
 
@@ -65,6 +82,18 @@ If execution data is unavailable, ask the user:
 - What did you postpone?
 - What took more energy than expected?
 - What needs to move to tomorrow?
+
+If filesystem access is available, locate today's Daily Note in the Obsidian vault.
+
+Common possible paths:
+
+```text
+01 Daily/YYYY-MM-DD.md
+Daily/YYYY-MM-DD.md
+Journal/Daily/YYYY-MM-DD.md
+```
+
+If the Daily Note cannot be found, ask the user for the note path or return an append-ready Markdown block.
 
 ## Procedure
 
@@ -131,12 +160,66 @@ Examples:
 - lights down
 - sleep
 
+### 7. Append to the Daily Note
+
+After generating the review, append it to today's Daily Note if filesystem access is available.
+
+Use append-only behavior.
+
+Do not overwrite or edit existing user content.
+
+Append this structure:
+
+```markdown
+---
+
+## Hermes Night Review — YYYY-MM-DD HH:mm
+
+### What Got Done
+- 
+
+### What Was Missed or Avoided
+- 
+
+### Pattern Observed
+- 
+
+### Carryovers for Tomorrow
+- [ ] 
+- [ ] 
+- [ ] 
+
+### First Action Tomorrow
+- 
+
+### Shutdown Suggestion
+- 
+```
+
+If the section already exists for today:
+
+- ask whether to append a new timestamped section
+- or create a new timestamped subsection
+- do not replace without explicit confirmation
+
 ## Output Format
+
+In the terminal/chat output, keep it short.
+
+If the note was updated, say:
+
+```markdown
+Appended `Hermes Night Review` to today's Daily Note.
+```
+
+Then show the same content briefly.
+
+If the note was not updated, return a copy-paste-ready block.
 
 Use this structure:
 
 ```markdown
-## Night Review
+## Hermes Night Review
 
 ### What Got Done
 - 
@@ -188,6 +271,8 @@ Hermes should enrich, not replace.
 - If the user missed many things, identify the one or two meaningful carryovers only.
 - If the user asks for a full analysis but seems tired, give a light version.
 - If the user is self-critical, explicitly separate behavior from identity.
+- Do not overwrite the user's Daily Note.
+- Do not write the user's personal reflections for them.
 
 ## Verification
 
@@ -198,3 +283,4 @@ Before finishing, verify that the output includes:
 - no more than three carryovers
 - one first action for tomorrow
 - one shutdown suggestion
+- append-only Daily Note behavior when filesystem access is available
