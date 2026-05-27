@@ -1,117 +1,114 @@
 ---
 name: weekly
-description: Weekly review ritual for synthesis, personal reflection, strategic planning, bottleneck detection, action decisions, and appending a Hermes Weekly Synthesis to the Obsidian Weekly Note.
-version: 0.3.0
+description: Obsidian-assisted weekly interview that creates or updates the Weekly Note, reads Daily Notes for patterns, extracts decisions, and prepares tasks for Sunsama.
+version: 0.4.0
 author: Alejandro García Iglesias
 license: MIT
 platforms: [macos]
 metadata:
   hermes:
-    tags: [personal-os, weekly-review, reflection, planning, obsidian, sunsama, append-only]
+    tags: [personal-os, weekly-review, reflection, planning, obsidian, sunsama, interview-mode, voice-friendly]
     category: personal-os
 ---
 
 # Weekly Review
 
-## When to Use
-
-Use this skill when the user invokes `/weekly`, asks to do the weekly review, asks what patterns appeared this week, asks what they have been procrastinating, or wants help planning the next week.
-
-This skill is for the Sunday review and planning ritual.
-
-It may also be used when the user wants to enrich an existing Obsidian Weekly Note with a Hermes synthesis.
-
 ## Purpose
 
-The purpose of `/weekly` is:
+Use this skill when the user invokes `/weekly`, wants to do the Sunday weekly review, create or update the Weekly Note, find patterns from the week, decide next week's focus, or convert reflection into concrete tasks.
 
-- synthesis
-- strategic reflection
-- personal review
-- pattern recognition
-- bottleneck detection
-- focus selection
-- weekly planning
-- decision extraction
-- task handoff to Sunsama
-- Weekly Note enrichment
+The skill should behave like a guided weekly interview. It should ask one question at a time, accept text or voice-transcribed answers, use Obsidian context, and persist the result in the Weekly Note.
 
-The goal is NOT productivity scoring.
-
-The goal is to help the user ask:
-
-> What actually happened this week, what moved the needle, what drained me, what gave me energy, and what should next week protect?
-
-The weekly review should turn reflection into a small number of clear decisions.
+The goal is not productivity scoring. The goal is synthesis, direction, and a small number of clear decisions.
 
 ## Core Principle
 
-The user's own Weekly Note is the primary source.
+The user's own weekly reflection is primary.
 
-Hermes should act as a reflective mirror and synthesis layer.
+Hermes should not replace the user's voice. Hermes should guide the review, notice patterns, ask about omissions, and append a concise synthesis.
 
-Hermes should NOT replace the user's review.
+The weekly review should answer:
 
-Hermes should:
+> What actually happened this week, what moved the needle, what drained me, what gave me energy, and what should next week protect?
 
-- preserve the user's voice
-- enrich the weekly note
-- extract patterns
-- propose decisions
-- convert decisions into concrete tasks
-- avoid overwhelming the user
-- never overwrite existing user content
+## Obsidian Access
 
-## Operating Principles
+Prefer using the existing `/obsidian` skill/tool for all Obsidian operations.
 
-- Be honest but compassionate.
-- Separate personal reflection from operational planning.
-- Do not turn the weekly review into a giant task list.
-- Focus on patterns, not isolated failures.
-- Identify what to stop doing.
-- Identify what to double down on.
-- Keep the next week realistic.
-- Protect recovery and family time.
-- Treat the system as an adaptive scaffold, not a prison.
-- Prefer fewer, clearer priorities.
-- Avoid productivity-grind language.
-- Never treat missed tasks as moral failure.
-- Do not create new projects unless the user explicitly asks.
-- When the user is anxious, reduce scope.
-- When the user is excited, preserve momentum without expanding the system too much.
-- Prefer append-only behavior when writing to Obsidian.
+Use `/obsidian` to:
 
-## Required Context
+- find or create the current Weekly Note
+- find `Weekly Template`
+- find Daily Notes from the current week
+- find the previous Weekly Note when useful
+- find `Current Focus`
+- read existing sections in the Weekly Note
+- update matching sections when safe
+- append the Hermes Weekly Synthesis
 
-Before reviewing, inspect or ask for:
+Do not hardcode local paths in this skill.
 
-1. Daily Notes from the week.
-2. Current Weekly Note, if already created.
-3. Current Focus.
-4. Sunsama/calendar task completion, if available.
-5. Important events from the week.
-6. Known commitments for next week.
-7. Any unresolved commitments from the prior weekly review.
+If `/obsidian` cannot write to the note, return a copy-paste-ready Markdown block.
 
-If context is unavailable, ask the user to paste summaries or answer a few review questions.
+## Safety Rules
 
-If only partial context is available, clearly state what was available and what was missing.
+- Never overwrite user-written content.
+- Prefer append-only updates unless creating a new note from template or updating empty template sections.
+- If a section already contains user content, append under it or add a `Hermes Weekly Interview` section.
+- If there is ambiguity, ask before replacing.
+- Do not write the user's personal reflections as if Hermes were the user.
+- Keep the final Hermes feedback practical, concise, and pattern-aware.
 
-If filesystem access is available, locate the current Weekly Note in the Obsidian vault.
+## Interview Modes
 
-Common possible paths:
+At the beginning, infer or ask for a mode:
 
-```text
-02 Weekly/YYYY-[W]ww.md
-Weekly/YYYY-[W]ww.md
-Journal/Weekly/YYYY-[W]ww.md
-```
+- `quick`: 5 questions, for low-energy reviews
+- `normal`: 8 questions, default
+- `deep`: 10-12 questions, only when the user asks for it
 
-If the Weekly Note cannot be found, ask the user for the note path or return an append-ready Markdown block.
+Accept control commands at any time:
 
-## Preferred Obsidian Structure
+- `skip`: skip the current question
+- `short`: shorten the process
+- `deeper`: ask one deeper follow-up
+- `done`: synthesize and write the note now
+- `cancel`: stop without writing
 
-The Weekly Note should ideally contain:
+## Required Weekly Context
+
+Before asking the first question, use `/obsidian` to gather context.
+
+Look for:
+
+1. Current Weekly Note.
+2. Weekly Template.
+3. Daily Notes from the current week.
+4. Previous Weekly Note, if useful.
+5. Current Focus.
+
+Read Daily Notes selectively. Do not summarize everything.
+
+Extract patterns such as:
+
+- repeated priorities
+- repeatedly postponed items
+- sleep/energy patterns
+- anxiety or money pressure
+- movement/training/meditation patterns
+- family/child presence
+- job applications and interviews
+- client conversations
+- Juana Casa / active client progress
+- Map Agency System progress
+- agency/ads/content progress
+- technical practice
+- rabbit holes or overplanning
+- decisions that were made but not executed
+
+## Preferred Weekly Template Sections
+
+If the user's Weekly Template has these or similar sections, use them:
 
 ```markdown
 #journal
@@ -144,172 +141,106 @@ The Weekly Note should ideally contain:
 - 
 ```
 
-Hermes should append or propose adding sections below the user's own review.
-
-Preferred append structure:
-
-```markdown
----
-
-## Hermes Weekly Synthesis — YYYY-[W]ww
-
-...
-
----
-
-## Decisions for Next Week
-...
-
-## Tasks to Send to Sunsama
-...
-```
+If the exact headings differ, preserve the user's headings and map the answers into the closest matching sections.
 
 ## Procedure
 
-### 1. Acknowledge Available Context
+### 1. Gather context first
 
-Start by briefly stating what context was used.
+Use `/obsidian` to find or create the Weekly Note from the Weekly Template.
+
+Then read the relevant Daily Notes for the week.
+
+Do not overwhelm the user with raw context. Start with a small pattern preview.
 
 Example:
 
 ```markdown
-Usé el contexto disponible:
-- Weekly note: 2026-W19
-- Daily notes: 2026-05-06, 2026-05-07, 2026-05-08
-- Current Focus
-- No tengo acceso directo confirmado a Sunsama/calendario
+Antes de revisar, veo 3 señales de la semana:
+- Búsqueda laboral apareció varias veces, pero no siempre tuvo ejecución consistente.
+- El sueño desordenado parece impactar directamente en la mañana.
+- Juana Casa aparece como prioridad pero todavía necesita un próximo paso concreto.
 ```
 
-Keep this short.
+### 2. Ask one question at a time
 
-### 2. Personal Review First
+Default normal flow:
 
-Look for:
+1. How was the week personally? Energy, sleep, body, mood, anxiety, family.
+2. What actually moved the needle?
+3. What gave energy?
+4. What drained energy?
+5. What were the biggest mistakes or avoidances?
+6. What opportunities are emerging?
+7. What are the current bottlenecks?
+8. What should stop or be reduced next week?
+9. What should be the main focus next week?
+10. What concrete tasks should go to Sunsama?
 
-- energy
-- mood
-- sleep
-- body/training
-- meditation
-- family/child presence
-- anxiety
-- avoidance
-- sense of direction
-- financial pressure
-- emotional conversations
-- moments of clarity
-- moments of fragmentation
+For quick mode:
 
-This is not task management.
+1. What moved the needle?
+2. What drained you?
+3. What pattern matters most?
+4. What is next week's focus?
+5. What are the 3 concrete tasks?
 
-### 3. Operational Review Second
+Do not ask all questions at once.
 
-Look for:
+### 3. Use context-aware follow-ups
 
-- job applications
-- interviews
-- client outreach
-- agency progress
-- Juana Casa / active client progress
-- Map Agency System progress
-- content progress
-- infoproduct progress
-- technical practice
-- follow-ups and proposals
-- ads / agency visibility
-- Sunsama/Obsidian/system progress
-
-### 4. Detect Patterns
-
-Identify:
-
-- momentum drivers
-- bottlenecks
-- recurring avoidance
-- overplanning
-- rabbit holes
-- late-night activation
-- phone/social drift
-- blocks that consistently work
-- blocks that consistently fail
-- anxiety triggers
-- clarity triggers
-- body/movement effects
-- family/presence effects
-
-### 5. Identify What Moved the Needle
-
-Focus on:
-
-- interviews
-- job applications
-- client conversations
-- proposals
-- concrete shipped assets
-- technical fluency improvements
-- meaningful personal/family alignment
-- better structure
-- clearer positioning
-- first steps toward revenue
-
-Avoid treating reflection as less valuable than output.
-
-If organizing the system created real clarity, name that as progress while warning against endless optimization.
-
-### 6. Identify Avoidance and Procrastination
-
-Look especially for productive procrastination.
+After open answers, ask about important omissions.
 
 Examples:
 
-- researching AI instead of applying to jobs
-- refining systems instead of contacting leads
-- polishing positioning instead of sending proposals
-- reorganizing the calendar instead of doing the first task
-- opening new business ideas instead of executing current ones
-- working late and destroying the next morning
+```markdown
+Juana Casa appeared in multiple Daily Notes, but I don't see a clear recorded advance.
+Was the bottleneck clarity, time, resistance, or missing next step?
+```
 
-Separate:
+```markdown
+Sleep came up several times. Do you want to treat sleep as a protected operational priority next week?
+```
 
-- useful exploration
-- avoidance disguised as useful exploration
+```markdown
+Map Agency System appeared as an opportunity. Should it stay active this week or be contained inside its existing blocks?
+```
 
-### 7. Decide Next Week's Focus
+Do not accuse. Ask to classify:
 
-Suggest:
+- moved forward
+- still important
+- postponed intentionally
+- deprioritized
+- avoided/resistance
+- not for this week
 
-- one main weekly focus
-- up to three strategic priorities
-- one thing to reduce
-- one thing to protect
-- one small experiment for the week, only if useful
+### 4. Distinguish reflection from decisions
 
-The main focus should usually favor:
+The weekly note should preserve two layers:
 
-1. income-direct work
-2. active client progress
-3. health/sleep stability
-4. clear execution over new ideas
+1. User reflection, mapped to the Weekly Template.
+2. Hermes synthesis, appended clearly below.
 
-### 8. Extract Decisions for Next Week
+The user reflection may contain subjective language.
 
-Always include this section.
+The Hermes synthesis should be concise, strategic, and useful on Monday.
 
-The goal is to transform reflection into direction.
+### 5. Extract Decisions for Next Week
+
+Always include a `Decisions for Next Week` section.
 
 Decisions should be:
 
 - few
 - clear
 - concrete
-- easy to reread on Monday
+- rereadable on Monday
 - framed as commitments or constraints
 
-Recommended number:
+Recommended number: 5-7 max.
 
-- 5 to 7 decisions max
-
-Examples:
+Example:
 
 ```markdown
 ## Decisions for Next Week
@@ -323,17 +254,13 @@ Examples:
 - Usar la agenda como scaffold, no como prueba moral.
 ```
 
-### 9. Create Tasks to Send to Sunsama
+### 6. Create Tasks to Send to Sunsama
 
-Always include this section.
+Always include a `Tasks to Send to Sunsama` section.
 
 These should be concrete tasks, not reflections.
 
-Use checkboxes.
-
-Recommended number:
-
-- 3 to 8 tasks max
+Recommended number: 3-8 max.
 
 Example:
 
@@ -342,41 +269,25 @@ Example:
 
 - [ ] Definir primera solución concreta para Juana Casa
 - [ ] Escribir frase mínima de posicionamiento del estudio/agencia
-- [ ] Aplicar a 3–5 trabajos por día hábil
+- [ ] Aplicar a 3-5 trabajos por día hábil
 - [ ] Crear bloque limitado para exploración IA
 - [ ] Revisar gastos personales
 ```
 
-### 10. Plan Lightly
+### 7. Write to Obsidian
 
-Do not redesign the whole weekly structure unless needed.
+After the interview, use `/obsidian` to create or update the current Weekly Note.
 
-Use the fixed weekly blocks as the skeleton.
+If template sections exist and are empty, fill them from the interview.
 
-Planning means:
+If sections already contain user content, append under a new block instead of replacing.
 
-- decide what goes inside each block
-- adjust around real commitments
-- choose top priorities
-- leave buffers
-- remove overload
-
-Do not suggest changing recurring blocks unless repeated evidence shows they are failing.
-
-### 11. Append to the Weekly Note
-
-After generating the synthesis, append it to the current Weekly Note if filesystem access is available.
-
-Use append-only behavior.
-
-Do not overwrite or edit existing user content.
-
-Append this structure:
+Always append this concise Hermes section:
 
 ```markdown
 ---
 
-## Hermes Weekly Synthesis — YYYY-[W]ww
+## Hermes Weekly Interview — YYYY-[W]ww
 
 ### What Actually Moved the Needle
 - 
@@ -403,9 +314,9 @@ Append this structure:
 - 
 
 ### Top 3 Priorities Next Week
-1.
-2.
-3.
+1. 
+2. 
+3. 
 
 ### Protect
 - 
@@ -422,115 +333,11 @@ Append this structure:
 - [ ] 
 ```
 
-If a `## Hermes Weekly Synthesis` section already exists:
-
-- ask whether to append a new timestamped section
-- or create a new subsection
-- do not replace without explicit confirmation
-
-## Output Format
-
-Use this full structure when doing a complete weekly review:
-
-```markdown
-## Hermes Weekly Synthesis
-
-### What Actually Moved the Needle
-- 
-
-### What Gave Energy
-- 
-
-### What Drained Energy
-- 
-
-### Patterns Observed
-- 
-
-### Avoidance / Procrastination
-- 
-
-### Bottlenecks
-- 
-
-### What to Stop or Reduce
-- 
-
-### Main Focus Next Week
-- 
-
-### Top 3 Priorities Next Week
-1.
-2.
-3.
-
-### Protect
-- 
-
-### Suggested Calendar/Sunsama Adjustments
-- 
-
----
-
-## Decisions for Next Week
-- 
-- 
-- 
-
-## Tasks to Send to Sunsama
-- [ ] 
-- [ ] 
-- [ ] 
-```
-
-## Short Output Mode
-
-If the user seems tired, anxious, or short on time, use this shorter structure:
-
-```markdown
-## Hermes Weekly Synthesis
-
-### Main Pattern
-- 
-
-### What Moved the Needle
-- 
-
-### Main Bottleneck
-- 
-
-### Main Focus Next Week
-- 
-
-## Decisions for Next Week
-- 
-- 
-- 
-
-## Tasks to Send to Sunsama
-- [ ] 
-- [ ] 
-- [ ] 
-```
-
-## Weekly Note Update
-
-If the user asks to update or enrich the Weekly Note, suggest appending the full Hermes section.
-
-Do not overwrite the user's own Weekly Note unless the user explicitly asks.
-
-Prefer append-only behavior.
-
-If direct file editing is available:
-
-- append under a new `## Hermes Weekly Synthesis` section
-- do not delete user content
-- do not rewrite the user's original review
-- if the section already exists, ask whether to replace it or create a new dated subsection
+Keep the synthesis sharp. Do not write an essay unless the user asks.
 
 ## Definitions
 
-### "No sumar nuevos frentes"
+### No sumar nuevos frentes
 
 This means:
 
@@ -538,7 +345,7 @@ This means:
 - do not start executing them this week
 - do not create a new revenue line before stabilizing the current ones
 
-It does NOT mean:
+It does not mean:
 
 - stop having ideas
 - ignore opportunities
@@ -557,33 +364,46 @@ Examples of new fronts to avoid unless explicitly chosen:
 - a new content channel
 - a new course/product unrelated to current focus
 
+## Output Format
+
+After writing, respond briefly:
+
+```markdown
+Listo. Creé/actualicé la Weekly Note y agregué el Hermes Weekly Interview.
+
+Main focus next week: ...
+Top priority: ...
+Thing to reduce: ...
+```
+
+If writing fails, provide the exact Markdown block to paste.
+
 ## Pitfalls
 
-- Do not confuse Sunday personal review with Friday operational review.
+- Do not make the weekly review feel like paperwork.
+- Do not ask every question if the user is tired.
+- Do not summarize the whole week as a long report.
 - Do not redesign the whole system every week unless repeated evidence supports it.
-- Do not add more projects just because the user is excited.
+- Do not add projects because the user is excited.
 - Do not treat missed tasks as moral failure.
-- Do not make the week too full.
-- If the user has child/family blocks, protect them from productive work unless explicitly necessary.
-- If the user is in high-dopamine planning mode, reduce scope.
-- If the user had an anxious week, do not prescribe a more intense week as the default solution.
-- If the user produced mostly clarity, do not call the week unproductive.
-- If there is no Sunsama/calendar access, do not pretend there is.
-- If daily notes are missing, mention the limitation.
-- If the user's own review contradicts inferred patterns, give the user's own review priority.
-- Do not overwrite the user's Weekly Note.
-- Do not write the user's personal reflections for them.
+- Do not make next week too full.
+- Do not ignore family/child blocks or recovery.
+- Do not prescribe a more intense week after an anxious week by default.
+- Do not call a clarity-heavy week unproductive.
+- Do not pretend to have Sunsama/calendar access if unavailable.
+- Do not just output in terminal if Obsidian writing is available.
 
 ## Verification
 
-Before finishing, verify that the output includes:
+Before finishing, verify that you have:
 
-- what moved the needle
-- energy/drain patterns
-- procrastination or avoidance pattern, if visible
-- one main focus for next week
-- three priorities max
-- at least one thing to stop/reduce
-- Decisions for Next Week
-- Tasks to Send to Sunsama
-- append-only Weekly Note behavior when filesystem access is available
+- read the Weekly Note or created it from template
+- reviewed relevant Daily Notes from the week when available
+- asked questions one at a time
+- asked context-aware follow-ups about omissions
+- extracted patterns, not just tasks
+- identified one main focus next week
+- limited next week's priorities to 3
+- included Decisions for Next Week
+- included Tasks to Send to Sunsama
+- persisted the result in Obsidian or returned a paste-ready fallback
