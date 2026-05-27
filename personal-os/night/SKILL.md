@@ -1,13 +1,13 @@
 ---
 name: night
-description: Obsidian-assisted night interview that compares today's plan with what happened, captures wins/friction/tomorrow, and appends a concise Hermes Night Review.
-version: 0.3.0
+description: Obsidian-assisted night interview that compares today's plan and the weekly focus with what happened, captures wins/friction/tomorrow, and appends a concise Hermes Night Review.
+version: 0.4.0
 author: Alejandro García Iglesias
 license: MIT
 platforms: [macos]
 metadata:
   hermes:
-    tags: [personal-os, reflection, shutdown, obsidian, daily-review, interview-mode, voice-friendly]
+    tags: [personal-os, reflection, shutdown, obsidian, daily-review, weekly-focus, interview-mode, voice-friendly]
     category: personal-os
 ---
 
@@ -25,17 +25,20 @@ The goal is not guilt or productivity scoring. The goal is closure, learning, an
 
 The night review should close loops, not open a new work session.
 
-Start from today’s plan:
+Start from today’s plan and the current weekly focus:
 
 - today’s Daily Note
 - morning priorities
 - important tasks
 - schedule
 - `Hermes Morning Interview`
+- the current Weekly Note's `Focus This Week`
 - any `Tomorrow` or carryovers brought into today
 - calendar/Sunsama execution, if available
 
-Hermes should gently notice omissions. If the user does not mention something that was marked important, ask about it without blame.
+Hermes should gently notice omissions. If the user does not mention something that was marked important today or belongs to the weekly focus, ask about it without blame.
+
+Do not require a separate `Current Focus` note. The current Weekly Note is the main source of focus. If an `Operating Principles` note exists, use it only as stable background context.
 
 ## Obsidian Access
 
@@ -45,6 +48,8 @@ Use `/obsidian` to:
 
 - find today’s Daily Note
 - read today’s planned priorities and tasks
+- find the current Weekly Note
+- read `Focus This Week` from the current Weekly Note
 - find tomorrow’s Daily Note only if needed
 - update or append to today’s note
 - append the Hermes Night Review
@@ -82,7 +87,7 @@ Accept control commands at any time:
 
 ### 1. Gather context first
 
-Before asking the first question, use `/obsidian` to read today’s Daily Note.
+Before asking the first question, use `/obsidian` to read today’s Daily Note and the current Weekly Note.
 
 Extract only the useful context. Do not dump the entire note into the conversation.
 
@@ -95,11 +100,16 @@ Look especially for:
 - `Thing to Avoid`
 - `First Action`
 - unchecked tasks
+- `Focus This Week`
+- `Main Focus`
+- `Active Fronts`
+- `Not This Week`
+- `Success Criteria`
 - notes/ideas already captured during the day
 
 ### 2. Start with intention vs reality
 
-Open with a compact summary of what the user intended today.
+Open with a compact summary of what the user intended today and what the weekly focus was.
 
 Example:
 
@@ -109,7 +119,9 @@ Hoy habías marcado como importante:
 - Juana Casa
 - Sales Check
 
-Vamos a cerrar el día sin hacer juicio, sólo mirando qué pasó.
+La weekly también marca como foco: ingreso directo + Juana Casa/agencia.
+
+Vamos a cerrar el día sin juicio, sólo mirando qué pasó.
 ```
 
 ### 3. Ask one question at a time
@@ -133,12 +145,12 @@ Do not fire all questions at once.
 
 ### 4. Ask context-aware follow-ups
 
-If the user omits something previously marked important, ask gently.
+If the user omits something previously marked important today or named in `Focus This Week`, ask gently.
 
 Example:
 
 ```markdown
-A la mañana Juana Casa figuraba como prioridad, pero no la nombraste.
+A la mañana Juana Casa figuraba como prioridad y también aparece en el foco semanal, pero no la nombraste.
 ¿La hiciste, quedó pendiente, perdió prioridad o hubo resistencia?
 ```
 
@@ -183,6 +195,9 @@ Always append a concise Hermes section:
 ---
 
 ## Hermes Night Interview — YYYY-MM-DD HH:mm
+
+### Weekly Focus Context
+- 
 
 ### What Got Done
 - 
@@ -243,6 +258,7 @@ After writing, respond briefly:
 ```markdown
 Listo. Actualicé tu Daily Note y agregué el Hermes Night Interview.
 
+Weekly focus: ...
 Win principal: ...
 Tomorrow: ...
 Shutdown: ...
@@ -260,12 +276,14 @@ If writing fails, provide the exact Markdown block to paste.
 - Do not write a long motivational essay.
 - Do not keep the user activated too late.
 - Do not just output in terminal if Obsidian writing is available.
+- Do not depend on a stale `Current Focus` note.
 
 ## Verification
 
 Before finishing, verify that you have:
 
 - read today’s Daily Note when available
+- read the current Weekly Note as the main focus source when available
 - compared intention vs execution
 - asked questions one at a time
 - noticed important omissions gently
