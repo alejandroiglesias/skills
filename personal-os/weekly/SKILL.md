@@ -1,13 +1,13 @@
 ---
 name: weekly
-description: Obsidian-assisted weekly interview that creates or updates the Weekly Note, reads Daily Notes for patterns, extracts decisions, and prepares tasks for Sunsama.
-version: 0.4.0
+description: Obsidian-assisted weekly interview that creates or updates the Weekly Note, defines Focus This Week, reads Daily Notes for patterns, extracts decisions, and prepares tasks for Sunsama.
+version: 0.5.0
 author: Alejandro García Iglesias
 license: MIT
 platforms: [macos]
 metadata:
   hermes:
-    tags: [personal-os, weekly-review, reflection, planning, obsidian, sunsama, interview-mode, voice-friendly]
+    tags: [personal-os, weekly-review, weekly-focus, reflection, planning, obsidian, sunsama, interview-mode, voice-friendly]
     category: personal-os
 ---
 
@@ -23,13 +23,17 @@ The goal is not productivity scoring. The goal is synthesis, direction, and a sm
 
 ## Core Principle
 
-The user's own weekly reflection is primary.
+The Weekly Note is the live source of current focus.
 
-Hermes should not replace the user's voice. Hermes should guide the review, notice patterns, ask about omissions, and append a concise synthesis.
+Do not require a separate `Current Focus` note. A separate `Current Focus` note can become stale and should not be treated as the main source of truth.
 
-The weekly review should answer:
+If an `Operating Principles` note exists, use it only as stable background context, not as the live weekly focus.
 
-> What actually happened this week, what moved the needle, what drained me, what gave me energy, and what should next week protect?
+The weekly review is a temporary focus contract:
+
+> Esta semana estamos jugando este juego. Al final de la semana revisamos: ¿seguimos, ajustamos, cerramos o pausamos?
+
+Hermes should not replace the user's voice. Hermes should guide the review, notice patterns, ask about omissions, define `Focus This Week`, and append a concise synthesis.
 
 ## Obsidian Access
 
@@ -41,10 +45,11 @@ Use `/obsidian` to:
 - find `Weekly Template`
 - find Daily Notes from the current week
 - find the previous Weekly Note when useful
-- find `Current Focus`
+- read the previous Weekly Note's `Focus This Week`
+- optionally find `Operating Principles` if it exists
 - read existing sections in the Weekly Note
 - update matching sections when safe
-- append the Hermes Weekly Synthesis
+- append the Hermes Weekly Interview
 
 Do not hardcode local paths in this skill.
 
@@ -84,8 +89,8 @@ Look for:
 1. Current Weekly Note.
 2. Weekly Template.
 3. Daily Notes from the current week.
-4. Previous Weekly Note, if useful.
-5. Current Focus.
+4. Previous Weekly Note, especially `Focus This Week`.
+5. Optional `Operating Principles`, only if available.
 
 Read Daily Notes selectively. Do not summarize everything.
 
@@ -112,6 +117,26 @@ If the user's Weekly Template has these or similar sections, use them:
 
 ```markdown
 #journal
+
+## Focus This Week
+
+### Main Focus
+- 
+
+### Active Fronts
+- 
+
+### Carryovers From Last Week
+- 
+
+### Not This Week
+- 
+
+### Success Criteria
+- 
+
+### Risks to Watch
+- 
 
 ## What Actually Moved The Needle?
 - 
@@ -141,7 +166,55 @@ If the user's Weekly Template has these or similar sections, use them:
 - 
 ```
 
+If the template does not yet contain `Focus This Week`, add or append it during the weekly review.
+
 If the exact headings differ, preserve the user's headings and map the answers into the closest matching sections.
+
+## Focus This Week
+
+Always define or update this section during `/weekly`.
+
+Use this structure:
+
+```markdown
+## Focus This Week
+
+### Main Focus
+- 
+
+### Active Fronts
+- 
+
+### Carryovers From Last Week
+- 
+
+### Not This Week
+- 
+
+### Success Criteria
+- 
+
+### Risks to Watch
+- 
+```
+
+Meanings:
+
+- `Main Focus`: the central game of the week.
+- `Active Fronts`: projects or areas allowed to receive real work this week.
+- `Carryovers From Last Week`: items that remain alive from the prior weekly focus or repeated Daily Notes.
+- `Not This Week`: ideas or fronts to capture but not execute.
+- `Success Criteria`: what would make the week feel successful.
+- `Risks to Watch`: predictable traps, avoidance loops, energy risks, or context-switching risks.
+
+The previous weekly focus should be reviewed explicitly.
+
+Ask:
+
+```markdown
+La semana pasada el foco era X.
+¿Sigue, cambia, se reduce, se pausa o se cierra?
+```
 
 ## Procedure
 
@@ -149,7 +222,7 @@ If the exact headings differ, preserve the user's headings and map the answers i
 
 Use `/obsidian` to find or create the Weekly Note from the Weekly Template.
 
-Then read the relevant Daily Notes for the week.
+Then read the relevant Daily Notes for the week and the previous Weekly Note's `Focus This Week`, if available.
 
 Do not overwhelm the user with raw context. Start with a small pattern preview.
 
@@ -162,7 +235,20 @@ Antes de revisar, veo 3 señales de la semana:
 - Juana Casa aparece como prioridad pero todavía necesita un próximo paso concreto.
 ```
 
-### 2. Ask one question at a time
+### 2. Review last week's focus
+
+Before defining a new focus, review the previous weekly focus.
+
+Ask one question at a time:
+
+1. Did last week's main focus stay alive?
+2. Which active fronts moved forward?
+3. Which carryovers should remain alive?
+4. Which fronts should be paused or marked `Not This Week`?
+
+Do not assume that a carryover should continue. Ask whether it is still alive.
+
+### 3. Ask one question at a time
 
 Default normal flow:
 
@@ -174,7 +260,7 @@ Default normal flow:
 6. What opportunities are emerging?
 7. What are the current bottlenecks?
 8. What should stop or be reduced next week?
-9. What should be the main focus next week?
+9. What should be the `Focus This Week` for next week?
 10. What concrete tasks should go to Sunsama?
 
 For quick mode:
@@ -187,7 +273,7 @@ For quick mode:
 
 Do not ask all questions at once.
 
-### 3. Use context-aware follow-ups
+### 4. Use context-aware follow-ups
 
 After open answers, ask about important omissions.
 
@@ -215,18 +301,19 @@ Do not accuse. Ask to classify:
 - avoided/resistance
 - not for this week
 
-### 4. Distinguish reflection from decisions
+### 5. Distinguish reflection from focus and decisions
 
-The weekly note should preserve two layers:
+The weekly note should preserve three layers:
 
-1. User reflection, mapped to the Weekly Template.
-2. Hermes synthesis, appended clearly below.
+1. `Focus This Week`: the live weekly focus contract.
+2. User reflection, mapped to the Weekly Template.
+3. Hermes synthesis, appended clearly below.
 
 The user reflection may contain subjective language.
 
 The Hermes synthesis should be concise, strategic, and useful on Monday.
 
-### 5. Extract Decisions for Next Week
+### 6. Extract Decisions for Next Week
 
 Always include a `Decisions for Next Week` section.
 
@@ -254,7 +341,7 @@ Example:
 - Usar la agenda como scaffold, no como prueba moral.
 ```
 
-### 6. Create Tasks to Send to Sunsama
+### 7. Create Tasks to Send to Sunsama
 
 Always include a `Tasks to Send to Sunsama` section.
 
@@ -274,7 +361,7 @@ Example:
 - [ ] Revisar gastos personales
 ```
 
-### 7. Write to Obsidian
+### 8. Write to Obsidian
 
 After the interview, use `/obsidian` to create or update the current Weekly Note.
 
@@ -288,6 +375,26 @@ Always append this concise Hermes section:
 ---
 
 ## Hermes Weekly Interview — YYYY-[W]ww
+
+### Focus This Week
+
+#### Main Focus
+- 
+
+#### Active Fronts
+- 
+
+#### Carryovers From Last Week
+- 
+
+#### Not This Week
+- 
+
+#### Success Criteria
+- 
+
+#### Risks to Watch
+- 
 
 ### What Actually Moved the Needle
 - 
@@ -308,9 +415,6 @@ Always append this concise Hermes section:
 - 
 
 ### What to Stop or Reduce
-- 
-
-### Main Focus Next Week
 - 
 
 ### Top 3 Priorities Next Week
@@ -371,7 +475,7 @@ After writing, respond briefly:
 ```markdown
 Listo. Creé/actualicé la Weekly Note y agregué el Hermes Weekly Interview.
 
-Main focus next week: ...
+Focus this week: ...
 Top priority: ...
 Thing to reduce: ...
 ```
@@ -392,17 +496,19 @@ If writing fails, provide the exact Markdown block to paste.
 - Do not call a clarity-heavy week unproductive.
 - Do not pretend to have Sunsama/calendar access if unavailable.
 - Do not just output in terminal if Obsidian writing is available.
+- Do not depend on a stale `Current Focus` note.
 
 ## Verification
 
 Before finishing, verify that you have:
 
 - read the Weekly Note or created it from template
+- reviewed the previous Weekly Focus when available
 - reviewed relevant Daily Notes from the week when available
 - asked questions one at a time
 - asked context-aware follow-ups about omissions
+- defined `Focus This Week`
 - extracted patterns, not just tasks
-- identified one main focus next week
 - limited next week's priorities to 3
 - included Decisions for Next Week
 - included Tasks to Send to Sunsama
