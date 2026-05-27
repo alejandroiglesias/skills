@@ -1,286 +1,275 @@
 ---
 name: night
-description: Night review ritual for integrating the day and appending a Hermes Night Review to the current Obsidian Daily Note.
-version: 0.2.0
+description: Obsidian-assisted night interview that compares today's plan with what happened, captures wins/friction/tomorrow, and appends a concise Hermes Night Review.
+version: 0.3.0
 author: Alejandro García Iglesias
 license: MIT
 platforms: [macos]
 metadata:
   hermes:
-    tags: [personal-os, reflection, shutdown, obsidian, daily-review, append-only]
+    tags: [personal-os, reflection, shutdown, obsidian, daily-review, interview-mode, voice-friendly]
     category: personal-os
 ---
 
 # Night Review
 
-## When to Use
-
-Use this skill when the user invokes `/night`, asks to close the day, asks what was missed today, wants to update the Daily Note, or wants help preparing tomorrow.
-
-This skill is for evening integration and shutdown.
-
 ## Purpose
 
-The purpose of `/night` is:
+Use this skill when the user invokes `/night`, wants to close the day, reflect on what happened, capture wins/friction/ideas/tomorrow, compare intention vs execution, or avoid losing the day’s learning.
 
-- integration
-- closure
-- honest reflection
-- carryover detection
-- nervous system downshift
-- continuity into tomorrow
-- Daily Note enrichment
+The skill should behave like a short, context-aware evening interview. It should ask one question at a time, accept text or voice-transcribed answers, and persist the result in Obsidian.
 
-The goal is NOT guilt.
-
-The goal is to help the user ask:
-
-> What happened today, what did I avoid, what matters tomorrow, and how can I close the day without keeping loops open?
+The goal is not guilt or productivity scoring. The goal is closure, learning, and a smoother tomorrow.
 
 ## Core Principle
 
-Hermes should not replace the user's own Daily Note.
+The night review should close loops, not open a new work session.
 
-Hermes should act as a reflective mirror and append a clearly separated section.
+Start from today’s plan:
 
-Hermes should:
+- today’s Daily Note
+- morning priorities
+- important tasks
+- schedule
+- `Hermes Morning Interview`
+- any `Tomorrow` or carryovers brought into today
+- calendar/Sunsama execution, if available
 
-- preserve the user's voice
-- close loops
-- identify carryovers
-- propose tomorrow's first action
-- support shutdown
-- never overwrite existing user content
+Hermes should gently notice omissions. If the user does not mention something that was marked important, ask about it without blame.
 
-## Operating Principles
+## Obsidian Access
 
-- Be gentle but honest.
-- Do not shame.
-- Do not over-analyze.
-- Do not turn the night into another work session.
-- Keep the review short.
-- Help the user close loops.
-- Prioritize sleep and shutdown.
-- Detect patterns without moralizing them.
-- Recommend tomorrow's first action if obvious.
-- Prefer append-only behavior when writing to Obsidian.
+Prefer using the existing `/obsidian` skill/tool for all Obsidian operations.
 
-## Required Context
+Use `/obsidian` to:
 
-Before reviewing, inspect or ask for:
+- find today’s Daily Note
+- read today’s planned priorities and tasks
+- find tomorrow’s Daily Note only if needed
+- update or append to today’s note
+- append the Hermes Night Review
 
-1. Today's Daily Note.
-2. Today's planned priorities.
-3. Completed tasks, if available.
-4. Sunsama/calendar execution, if available.
-5. Any notes captured during the day.
-6. Tomorrow's fixed commitments, if available.
+Do not hardcode local paths in this skill.
 
-If execution data is unavailable, ask the user:
+If `/obsidian` cannot write to the note, return a copy-paste-ready Markdown block.
 
-- What did you actually complete?
-- What did you postpone?
-- What took more energy than expected?
-- What needs to move to tomorrow?
+## Safety Rules
 
-If filesystem access is available, locate today's Daily Note in the Obsidian vault.
+- Never overwrite user-written content.
+- Prefer append-only updates unless updating an empty template section.
+- If a section already contains user content, append under it or add a `Hermes Night Interview` section.
+- If there is ambiguity, ask before replacing.
+- Do not write the user’s personal reflections as if Hermes were the user.
+- Keep the final Hermes feedback brief, practical, and pattern-aware.
 
-Common possible paths:
+## Interview Modes
 
-```text
-01 Daily/YYYY-MM-DD.md
-Daily/YYYY-MM-DD.md
-Journal/Daily/YYYY-MM-DD.md
-```
+At the beginning, infer or ask for a mode:
 
-If the Daily Note cannot be found, ask the user for the note path or return an append-ready Markdown block.
+- `quick`: 3 questions, default if it is late or the user sounds tired
+- `normal`: 5-6 questions, default when there is enough energy
+- `deep`: 8-10 questions, only when the user asks for it
+
+Accept control commands at any time:
+
+- `skip`: skip the current question
+- `short`: shorten the process
+- `deeper`: ask one deeper follow-up
+- `done`: synthesize and write the note now
+- `cancel`: stop without writing
 
 ## Procedure
 
-### 1. Compare intention vs execution
+### 1. Gather context first
 
-Look at:
+Before asking the first question, use `/obsidian` to read today’s Daily Note.
 
-- planned priorities
-- completed work
-- moved/skipped tasks
-- unplanned work
-- emotional/energy notes
+Extract only the useful context. Do not dump the entire note into the conversation.
 
-### 2. Identify completion
+Look especially for:
 
-Name what was actually done.
+- `Top Priorities`
+- `Important Tasks`
+- `Schedule`
+- `Hermes Morning Interview`
+- `Thing to Avoid`
+- `First Action`
+- unchecked tasks
+- notes/ideas already captured during the day
 
-This matters psychologically.
+### 2. Start with intention vs reality
 
-### 3. Identify avoided or postponed items
+Open with a compact summary of what the user intended today.
 
-Separate:
+Example:
 
-- truly important missed items
-- optional items
-- tasks that can wait
-- tasks that were avoided repeatedly
+```markdown
+Hoy habías marcado como importante:
+- búsqueda laboral
+- Juana Casa
+- Sales Check
 
-Do not exaggerate urgency.
+Vamos a cerrar el día sin hacer juicio, sólo mirando qué pasó.
+```
 
-### 4. Detect patterns
+### 3. Ask one question at a time
 
-Look for:
+Default normal flow:
 
-- overplanning
-- late start
-- phone/social media drift
-- AI research rabbit holes
-- avoiding outreach
-- avoiding difficult calls/messages
-- skipping body/meditation rituals
-- working too late
+1. What did you actually complete today, even if small?
+2. What was missed, postponed, or avoided?
+3. What drained you or pulled you off-center?
+4. What gave energy or helped regulation?
+5. Did any ideas, notes, or decisions appear that should be captured?
+6. What should tomorrow inherit from today?
 
-### 5. Generate Tomorrow carryovers
+For quick mode:
 
-Suggest:
+1. What got done?
+2. What matters for tomorrow?
+3. What should you do now to shut down?
 
-- one first task
-- up to three carryovers
-- one thing to avoid tomorrow
-- one grounding ritual
+Do not fire all questions at once.
 
-### 6. Support shutdown
+### 4. Ask context-aware follow-ups
 
-End with a clear shutdown suggestion.
+If the user omits something previously marked important, ask gently.
+
+Example:
+
+```markdown
+A la mañana Juana Casa figuraba como prioridad, pero no la nombraste.
+¿La hiciste, quedó pendiente, perdió prioridad o hubo resistencia?
+```
+
+Offer categories:
+
+- done
+- not done but still important
+- postponed intentionally
+- deprioritized
+- avoided/resistance
+- no longer relevant
+
+If something has appeared repeatedly across days, name the pattern briefly.
+
+Example:
+
+```markdown
+Esto apareció varios días. ¿Querés convertirlo en un primer paso más chico para mañana o sacarlo de prioridad por ahora?
+```
+
+### 5. Distinguish sections clearly
+
+When writing the Daily Note, use these meanings:
+
+- `Wins`: what actually happened and deserves recognition
+- `Problems / Friction`: what made execution harder
+- `Ideas`: captured ideas, not commitments
+- `Tomorrow`: things tomorrow should review or inherit
+- `Hermes Night Interview`: synthesis and pattern mirror
+
+Do not turn `Tomorrow` into a huge backlog. Keep it short.
+
+### 6. Write to Obsidian
+
+After the interview, use `/obsidian` to update today’s Daily Note.
+
+If the template sections exist, update them safely. If safe section updates are not possible, append a structured block.
+
+Always append a concise Hermes section:
+
+```markdown
+---
+
+## Hermes Night Interview — YYYY-MM-DD HH:mm
+
+### What Got Done
+- 
+
+### Missed / Avoided / Postponed
+- 
+
+### Friction
+- 
+
+### Ideas / Notes Captured
+- 
+
+### Tomorrow
+- [ ] 
+
+### Pattern Observed
+- 
+
+### First Action Tomorrow
+- 
+
+### Shutdown Suggestion
+- 
+```
+
+`Pattern Observed` should be short: 1-3 bullets, pragmatic and consciousness-building.
+
+Good style:
+
+```markdown
+- The main issue today was not lack of intention; it was late start + too many active fronts.
+- Tomorrow should begin with one income-direct action before any IA exploration.
+```
+
+Avoid long essays.
+
+### 7. Support shutdown
+
+End with a concrete shutdown cue.
 
 Examples:
 
 - close laptop
 - phone away
-- shower if needed
 - brush teeth
+- shower if needed
 - 5 min silent meditation
-- lights down
+- lights low
 - sleep
 
-### 7. Append to the Daily Note
-
-After generating the review, append it to today's Daily Note if filesystem access is available.
-
-Use append-only behavior.
-
-Do not overwrite or edit existing user content.
-
-Append this structure:
-
-```markdown
----
-
-## Hermes Night Review — YYYY-MM-DD HH:mm
-
-### What Got Done
-- 
-
-### What Was Missed or Avoided
-- 
-
-### Pattern Observed
-- 
-
-### Carryovers for Tomorrow
-- [ ] 
-- [ ] 
-- [ ] 
-
-### First Action Tomorrow
-- 
-
-### Shutdown Suggestion
-- 
-```
-
-If the section already exists for today:
-
-- ask whether to append a new timestamped section
-- or create a new timestamped subsection
-- do not replace without explicit confirmation
+If it is very late, prioritize sleep and make the review shorter.
 
 ## Output Format
 
-In the terminal/chat output, keep it short.
-
-If the note was updated, say:
+After writing, respond briefly:
 
 ```markdown
-Appended `Hermes Night Review` to today's Daily Note.
+Listo. Actualicé tu Daily Note y agregué el Hermes Night Interview.
+
+Win principal: ...
+Tomorrow: ...
+Shutdown: ...
 ```
 
-Then show the same content briefly.
-
-If the note was not updated, return a copy-paste-ready block.
-
-Use this structure:
-
-```markdown
-## Hermes Night Review
-
-### What Got Done
-- 
-
-### What Was Missed or Avoided
-- 
-
-### Pattern Observed
-- 
-
-### Carryovers for Tomorrow
-- [ ] 
-- [ ] 
-- [ ] 
-
-### First Action Tomorrow
-- 
-
-### Shutdown Suggestion
-- 
-```
-
-## Daily Note Update
-
-If the user asks to update the Daily Note, suggest content for:
-
-```markdown
-## Wins
-- 
-
-## Problems / Friction
-- 
-
-## Notes
-- 
-
-## Tomorrow
-- 
-```
-
-Do not overwrite the user's notes.
-
-Hermes should enrich, not replace.
+If writing fails, provide the exact Markdown block to paste.
 
 ## Pitfalls
 
-- If it is very late, shorten the review drastically and prioritize sleep.
-- If the user starts planning a new system at night, suggest capturing the idea and stopping.
-- If the user missed many things, identify the one or two meaningful carryovers only.
-- If the user asks for a full analysis but seems tired, give a light version.
-- If the user is self-critical, explicitly separate behavior from identity.
-- Do not overwrite the user's Daily Note.
-- Do not write the user's personal reflections for them.
+- Do not make the night review feel like homework.
+- Do not ask every possible question.
+- Do not over-analyze at night.
+- Do not let the user plan a new system at night; capture and close.
+- Do not treat missed tasks as moral failure.
+- Do not write a long motivational essay.
+- Do not keep the user activated too late.
+- Do not just output in terminal if Obsidian writing is available.
 
 ## Verification
 
-Before finishing, verify that the output includes:
+Before finishing, verify that you have:
 
-- what got done
-- what was missed/avoided
-- no more than three carryovers
-- one first action for tomorrow
-- one shutdown suggestion
-- append-only Daily Note behavior when filesystem access is available
+- read today’s Daily Note when available
+- compared intention vs execution
+- asked questions one at a time
+- noticed important omissions gently
+- captured wins/friction/tomorrow
+- defined a first action for tomorrow
+- suggested shutdown
+- persisted the result in Obsidian or returned a paste-ready fallback
