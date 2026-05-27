@@ -1,13 +1,13 @@
 ---
 name: morning
-description: Obsidian-assisted morning interview that creates or updates today's Daily Note from template, uses prior notes for continuity, and appends a concise Hermes Morning Review.
-version: 0.3.0
+description: Obsidian-assisted morning interview that creates or updates today's Daily Note from template, uses prior notes and the current Weekly Focus for continuity, and appends a concise Hermes Morning Review.
+version: 0.4.0
 author: Alejandro García Iglesias
 license: MIT
 platforms: [macos]
 metadata:
   hermes:
-    tags: [personal-os, reflection, planning, obsidian, daily-review, interview-mode, voice-friendly]
+    tags: [personal-os, reflection, planning, obsidian, daily-review, weekly-focus, interview-mode, voice-friendly]
     category: personal-os
 ---
 
@@ -31,11 +31,15 @@ Start from continuity:
 
 - yesterday's Daily Note
 - yesterday's `Tomorrow` section
-- yesterday's `Hermes Night Review`
+- yesterday's `Hermes Night Interview`
 - unfinished or repeatedly postponed items
-- current Weekly Note
-- `Current Focus`, if available
+- the current Weekly Note
+- the current Weekly Note's `Focus This Week` section
 - today's calendar/Sunsama context, if available
+
+The current Weekly Note is the primary source of current focus.
+
+Do not require a separate `Current Focus` note. If an `Operating Principles` note exists, use it only as stable background context, not as the live weekly focus.
 
 Hermes should not replace the user's voice. Hermes should interview, organize, and write back a clearly separated synthesis.
 
@@ -50,7 +54,8 @@ Use `/obsidian` to:
 - find yesterday's Daily Note
 - find `Daily Template`
 - find the current Weekly Note
-- find `Current Focus`
+- read `Focus This Week` from the current Weekly Note
+- optionally find `Operating Principles` if it exists
 - create today's Daily Note from the Daily Template if it does not exist
 - update matching sections in the Daily Note when safe
 - append the Hermes section at the end
@@ -94,7 +99,8 @@ Before asking the first question, use `/obsidian` to look for:
 2. Daily Template.
 3. Yesterday's Daily Note or latest previous Daily Note.
 4. Current Weekly Note.
-5. Current Focus note.
+5. `Focus This Week` inside the current Weekly Note.
+6. Optional `Operating Principles`, only if available.
 
 If today's note does not exist, create it from the Daily Template when possible.
 
@@ -106,22 +112,27 @@ Look especially for:
 - unchecked tasks
 - `Top Priorities`
 - `Important Tasks`
-- `Hermes Night Review`
+- `Hermes Night Interview`
 - carryovers
-- decisions from the Weekly Note
+- `Focus This Week`
+- `Main Focus`
+- `Active Fronts`
+- `Not This Week`
+- `Success Criteria`
+- `Risks to Watch`
 - repeated issues such as sleep, anxiety, phone drift, avoidance, overplanning, or AI rabbit holes
 
 ### 2. Start with contextual continuity
 
-Open with at most 3 bullets from prior context.
+Open with at most 3 bullets from prior context and weekly focus.
 
 Example:
 
 ```markdown
-Antes de arrancar, traigo continuidad de ayer:
-- Quedó pendiente definir el primer paso de Juana Casa.
-- Búsqueda laboral sigue siendo prioridad de ingreso directo.
-- Ayer apareció el riesgo de perderte en exploración IA.
+Antes de arrancar, traigo continuidad:
+- Esta semana el foco es ingreso directo: búsqueda laboral + Juana Casa/agencia.
+- Ayer quedó pendiente definir el primer paso de Juana Casa.
+- También apareció el riesgo de perderte en exploración IA.
 ```
 
 Then ask whether those items still matter today, but do not ask a huge question all at once.
@@ -131,7 +142,7 @@ Then ask whether those items still matter today, but do not ask a huge question 
 Default normal flow:
 
 1. How are you arriving today? Energy, sleep, body, anxiety, clarity.
-2. From the carryovers/context, what is still truly important today?
+2. Given this week's focus and yesterday's carryovers, what is still truly important today?
 3. What has to happen today for the day to feel worthwhile?
 4. What are the real constraints today? Calendar, child/family, calls, energy, errands.
 5. What could sabotage the day?
@@ -143,12 +154,12 @@ Do not fire all questions at once.
 
 ### 4. Ask context-aware follow-ups
 
-If the user omits something that was previously important, gently ask about it.
+If the user omits something that was previously important or part of `Focus This Week`, gently ask about it.
 
 Example:
 
 ```markdown
-Ayer `Juana Casa` quedó como prioridad, pero todavía no la nombraste hoy.
+La Weekly marca `Juana Casa/agencia` como foco, pero todavía no la nombraste hoy.
 ¿Sigue vigente, queda pendiente, perdió prioridad o hay algo de resistencia ahí?
 ```
 
@@ -199,6 +210,9 @@ Always append a concise Hermes section:
 
 ## Hermes Morning Interview — YYYY-MM-DD HH:mm
 
+### Weekly Focus Context
+- 
+
 ### User Signals
 - 
 
@@ -241,6 +255,7 @@ After writing, respond briefly:
 ```markdown
 Listo. Creé/actualicé tu Daily Note y agregué el Hermes Morning Interview.
 
+Weekly focus: ...
 Main focus: ...
 First action: ...
 Thing to avoid: ...
@@ -257,12 +272,14 @@ If writing fails, provide the exact Markdown block to paste.
 - Do not treat missed prior tasks as moral failure.
 - Do not write a long motivational essay.
 - Do not just output in terminal if Obsidian writing is available.
+- Do not depend on a stale `Current Focus` note.
 
 ## Verification
 
 Before finishing, verify that you have:
 
 - read relevant Obsidian context when available
+- used the current Weekly Note as the main focus source
 - asked questions one at a time
 - reduced blank-page friction
 - identified a main focus
