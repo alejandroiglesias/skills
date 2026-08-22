@@ -21,6 +21,8 @@ The skill should behave like a guided weekly interview. It should ask one questi
 
 The goal is not productivity scoring. The goal is synthesis, direction, and a small number of clear decisions.
 
+The weekly review must also be an evolutionary personal/professional reflection tool, not a superficial form. Avoid merely asking obvious status questions. Use lateral thinking to connect domains the user may not connect at first glance: money pressure, body/energy, romance/desire, fatherhood/logistics, creative/business impulses, avoidance loops, sleep, home environment, job search, client work, and identity. Turn patterns into insight, constraints, experiments, and actionable transformation.
+
 ## Core Principle
 
 The Weekly Note is the live source of current focus.
@@ -33,7 +35,7 @@ The weekly review is a temporary focus contract:
 
 > Esta semana estamos jugando este juego. Al final de la semana revisamos: ¿seguimos, ajustamos, cerramos o pausamos?
 
-Hermes should not replace the user's voice. Hermes should guide the review, notice patterns, ask about omissions, define `Focus This Week`, and append a concise synthesis.
+The assistant should not replace the user's voice. The assistant should guide the review, notice patterns, ask about omissions, define `Focus This Week`, and append a concise synthesis.
 
 ## Obsidian Access
 
@@ -49,7 +51,7 @@ Use `/obsidian` to:
 - optionally find `Operating Principles` if it exists
 - read existing sections in the Weekly Note
 - update matching sections when safe
-- append the Hermes Weekly Interview
+- append the Weekly Interview
 
 Do not hardcode local paths in this skill.
 
@@ -59,10 +61,10 @@ If `/obsidian` cannot write to the note, return a copy-paste-ready Markdown bloc
 
 - Never overwrite user-written content.
 - Prefer append-only updates unless creating a new note from template or updating empty template sections.
-- If a section already contains user content, append under it or add a `Hermes Weekly Interview` section.
+- If a section already contains user content, append under it or add a `Weekly Interview` section.
 - If there is ambiguity, ask before replacing.
-- Do not write the user's personal reflections as if Hermes were the user.
-- Keep the final Hermes feedback practical, concise, and pattern-aware.
+- Do not write the user's personal reflections as if the assistant were the user.
+- Keep the assistant's final feedback practical, concise, and pattern-aware.
 
 ## Interview Modes
 
@@ -307,11 +309,11 @@ The weekly note should preserve three layers:
 
 1. `Focus This Week`: the live weekly focus contract.
 2. User reflection, mapped to the Weekly Template.
-3. Hermes synthesis, appended clearly below.
+3. Assistant synthesis, appended clearly below.
 
 The user reflection may contain subjective language.
 
-The Hermes synthesis should be concise, strategic, and useful on Monday.
+The assistant synthesis should be concise, strategic, and useful on Monday.
 
 ### 6. Extract Decisions for Next Week
 
@@ -369,12 +371,12 @@ If template sections exist and are empty, fill them from the interview.
 
 If sections already contain user content, append under a new block instead of replacing.
 
-Always append this concise Hermes section:
+Always append this concise review section:
 
 ```markdown
 ---
 
-## Hermes Weekly Interview — YYYY-[W]ww
+## Weekly Interview — YYYY-[W]ww
 
 ### Focus This Week
 
@@ -473,7 +475,7 @@ Examples of new fronts to avoid unless explicitly chosen:
 After writing, respond briefly:
 
 ```markdown
-Listo. Creé/actualicé la Weekly Note y agregué el Hermes Weekly Interview.
+Listo. Creé/actualicé la Weekly Note y agregué el Weekly Interview.
 
 Focus this week: ...
 Top priority: ...

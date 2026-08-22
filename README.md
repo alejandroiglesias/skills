@@ -1,68 +1,66 @@
-# Hermes Personal OS Skills
+# Agent Skills Collection
 
-This folder contains three Hermes skills:
+Reusable skills for compatible coding agents. Each skill lives in its own directory below `skills/` and is discovered through its `SKILL.md` file.
 
-- `/morning`
-- `/night`
-- `/weekly`
+## Repository layout
+
+```text
+skills/
+  <skill-name>/
+    SKILL.md
+scripts/
+  install.sh
+  list-skills.sh
+```
+
+The repository is not limited to the skills that currently exist. Add a new `skills/<skill-name>/SKILL.md` directory and the CLI will discover it automatically.
 
 ## Install
 
-### Copy install
-
-Copy the `personal-os` folder into your Hermes skills directory:
+Run the wrapper without flags to let the `skills` CLI interactively choose which skills and agents to install globally:
 
 ```bash
-./install.sh
+./scripts/install.sh
 ```
 
-or explicitly:
+The wrapper delegates to:
 
 ```bash
-./install.sh --copy
+npx --yes skills add "$REPO" --global
 ```
 
-This copies the skills into:
+`--global` is always applied by the wrapper. Every other argument is forwarded to `npx skills`, so you can use the CLI's non-interactive options when needed:
 
 ```bash
-~/.hermes/skills/personal-os
+# Install every discovered skill to every supported agent
+./scripts/install.sh --all
+
+# Install one skill for one agent
+./scripts/install.sh --skill morning --agent codex
+
+# Copy files instead of using symlinks
+./scripts/install.sh --copy
 ```
 
-### Symlink install
+The CLI manages agent-specific destinations. During interactive installation, choose symlinks for a live connection to this repository or copies for independent files. If you add or edit a skill locally, rerun the install command to refresh the installation.
 
-For development, symlink the repo folder instead:
+## List skills
+
+List every discovered skill from any working directory:
 
 ```bash
-./install.sh --symlink
+./scripts/list-skills.sh
 ```
 
-This creates:
+The output contains sorted repository-relative paths such as `skills/morning/SKILL.md`.
+
+## Create a skill
+
+Create a directory containing a `SKILL.md` file:
 
 ```bash
-~/.hermes/skills/personal-os -> ./personal-os
+mkdir -p skills/my-skill
+touch skills/my-skill/SKILL.md
 ```
 
-Use this if you want Hermes to use the latest local repo changes immediately after `git pull`, without copying the folder again.
-
-## Check
-
-```bash
-hermes skills list | grep -E "morning|night|weekly"
-```
-
-To see whether the skills are copied or symlinked:
-
-```bash
-ls -la ~/.hermes/skills
-readlink ~/.hermes/skills/personal-os
-```
-
-If `readlink` prints a path, it is symlinked. If it prints nothing, it is probably copied.
-
-## Test
-
-```bash
-hermes chat -q "/morning Start my day"
-hermes chat -q "/night Close my day"
-hermes chat -q "/weekly Help me do my weekly review"
-```
+The file should contain valid Agent Skills frontmatter with at least `name` and `description`, followed by the instructions for the agent.

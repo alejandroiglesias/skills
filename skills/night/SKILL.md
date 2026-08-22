@@ -1,6 +1,6 @@
 ---
 name: night
-description: Obsidian-assisted night interview that compares today's plan and the weekly focus with what happened, captures wins/friction/tomorrow, and appends a concise Hermes Night Review.
+description: Obsidian-assisted night interview that compares today's plan and the weekly focus with what happened, captures wins/friction/tomorrow, and appends a concise Night Review.
 version: 0.4.0
 author: Alejandro García Iglesias
 license: MIT
@@ -31,12 +31,12 @@ Start from today’s plan and the current weekly focus:
 - morning priorities
 - important tasks
 - schedule
-- `Hermes Morning Interview`
+- `Morning Interview`
 - the current Weekly Note's `Focus This Week`
 - any `Tomorrow` or carryovers brought into today
 - calendar/Sunsama execution, if available
 
-Hermes should gently notice omissions. If the user does not mention something that was marked important today or belongs to the weekly focus, ask about it without blame.
+The assistant should gently notice omissions. If the user does not mention something that was marked important today or belongs to the weekly focus, ask about it without blame.
 
 Do not require a separate `Current Focus` note. The current Weekly Note is the main source of focus. If an `Operating Principles` note exists, use it only as stable background context.
 
@@ -52,7 +52,7 @@ Use `/obsidian` to:
 - read `Focus This Week` from the current Weekly Note
 - find tomorrow’s Daily Note only if needed
 - update or append to today’s note
-- append the Hermes Night Review
+- append the Night Review
 
 Do not hardcode local paths in this skill.
 
@@ -62,10 +62,10 @@ If `/obsidian` cannot write to the note, return a copy-paste-ready Markdown bloc
 
 - Never overwrite user-written content.
 - Prefer append-only updates unless updating an empty template section.
-- If a section already contains user content, append under it or add a `Hermes Night Interview` section.
+- If a section already contains user content, append under it or add a `Night Interview` section.
 - If there is ambiguity, ask before replacing.
-- Do not write the user’s personal reflections as if Hermes were the user.
-- Keep the final Hermes feedback brief, practical, and pattern-aware.
+- Do not write the user’s personal reflections as if the assistant were the user.
+- Keep the assistant's final feedback brief, practical, and pattern-aware.
 
 ## Interview Modes
 
@@ -96,7 +96,7 @@ Look especially for:
 - `Top Priorities`
 - `Important Tasks`
 - `Schedule`
-- `Hermes Morning Interview`
+- `Morning Interview`
 - `Thing to Avoid`
 - `First Action`
 - unchecked tasks
@@ -179,7 +179,7 @@ When writing the Daily Note, use these meanings:
 - `Problems / Friction`: what made execution harder
 - `Ideas`: captured ideas, not commitments
 - `Tomorrow`: things tomorrow should review or inherit
-- `Hermes Night Interview`: synthesis and pattern mirror
+- `Night Interview`: synthesis and pattern mirror
 
 Do not turn `Tomorrow` into a huge backlog. Keep it short.
 
@@ -189,12 +189,12 @@ After the interview, use `/obsidian` to update today’s Daily Note.
 
 If the template sections exist, update them safely. If safe section updates are not possible, append a structured block.
 
-Always append a concise Hermes section:
+Always append a concise review section:
 
 ```markdown
 ---
 
-## Hermes Night Interview — YYYY-MM-DD HH:mm
+## Night Interview — YYYY-MM-DD HH:mm
 
 ### Weekly Focus Context
 - 
@@ -256,7 +256,7 @@ If it is very late, prioritize sleep and make the review shorter.
 After writing, respond briefly:
 
 ```markdown
-Listo. Actualicé tu Daily Note y agregué el Hermes Night Interview.
+Listo. Actualicé tu Daily Note y agregué el Night Interview.
 
 Weekly focus: ...
 Win principal: ...

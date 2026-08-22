@@ -1,6 +1,6 @@
 ---
 name: morning
-description: Obsidian-assisted morning interview that creates or updates today's Daily Note from template, uses prior notes and the current Weekly Focus for continuity, and appends a concise Hermes Morning Review.
+description: Obsidian-assisted morning interview that creates or updates today's Daily Note from template, uses prior notes and the current Weekly Focus for continuity, and appends a concise Morning Review.
 version: 0.4.0
 author: Alejandro García Iglesias
 license: MIT
@@ -31,7 +31,7 @@ Start from continuity:
 
 - yesterday's Daily Note
 - yesterday's `Tomorrow` section
-- yesterday's `Hermes Night Interview`
+- yesterday's `Night Interview`
 - unfinished or repeatedly postponed items
 - the current Weekly Note
 - the current Weekly Note's `Focus This Week` section
@@ -41,7 +41,7 @@ The current Weekly Note is the primary source of current focus.
 
 Do not require a separate `Current Focus` note. If an `Operating Principles` note exists, use it only as stable background context, not as the live weekly focus.
 
-Hermes should not replace the user's voice. Hermes should interview, organize, and write back a clearly separated synthesis.
+The assistant should not replace the user's voice. The assistant should interview, organize, and write back a clearly separated synthesis.
 
 ## Obsidian Access
 
@@ -58,7 +58,7 @@ Use `/obsidian` to:
 - optionally find `Operating Principles` if it exists
 - create today's Daily Note from the Daily Template if it does not exist
 - update matching sections in the Daily Note when safe
-- append the Hermes section at the end
+- append the review section at the end
 
 Do not hardcode local paths in this skill.
 
@@ -68,10 +68,10 @@ If `/obsidian` cannot write to the note, return a copy-paste-ready Markdown bloc
 
 - Never overwrite user-written content.
 - Prefer append-only updates unless creating a new note from template.
-- If a section already contains user content, append under it or add a `Hermes Morning Interview` section.
+- If a section already contains user content, append under it or add a `Morning Interview` section.
 - If there is ambiguity, ask before replacing.
-- Do not fill the user's personal journal voice as if Hermes were the user.
-- Keep the final Hermes feedback brief, practical, and pattern-aware.
+- Do not fill the user's personal journal voice as if the assistant were the user.
+- Keep the assistant's final feedback brief, practical, and pattern-aware.
 
 ## Interview Modes
 
@@ -112,7 +112,7 @@ Look especially for:
 - unchecked tasks
 - `Top Priorities`
 - `Important Tasks`
-- `Hermes Night Interview`
+- `Night Interview`
 - carryovers
 - `Focus This Week`
 - `Main Focus`
@@ -203,12 +203,12 @@ After the interview, use `/obsidian` to create or update today's Daily Note.
 
 If the template sections exist, update them safely. If safe section updates are not possible, append a structured block.
 
-Always append a concise Hermes section:
+Always append a concise review section:
 
 ```markdown
 ---
 
-## Hermes Morning Interview — YYYY-MM-DD HH:mm
+## Morning Interview — YYYY-MM-DD HH:mm
 
 ### Weekly Focus Context
 - 
@@ -233,11 +233,11 @@ Always append a concise Hermes section:
 ### Grounding Anchor
 - 
 
-### Hermes Reflection
+### Reflection
 - 
 ```
 
-`Hermes Reflection` should be short: 1-3 bullets, pragmatic and pattern-aware.
+`Reflection` should be short: 1-3 bullets, pragmatic and pattern-aware.
 
 Good reflection style:
 
@@ -250,15 +250,15 @@ Avoid long essays.
 
 ## Output Format
 
-After writing, respond briefly:
+After writing, respond briefly in the user's language. For Ale's Spanish morning reviews, keep the final summary labels in Spanish (do not mix English labels with Spanish content):
 
 ```markdown
-Listo. Creé/actualicé tu Daily Note y agregué el Hermes Morning Interview.
+Listo. Creé/actualicé tu Daily Note y agregué el Morning Interview.
 
-Weekly focus: ...
-Main focus: ...
-First action: ...
-Thing to avoid: ...
+Foco semanal: ...
+Foco principal: ...
+Primera acción: ...
+Cosa a evitar: ...
 ```
 
 If writing fails, provide the exact Markdown block to paste.

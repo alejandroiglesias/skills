@@ -2,7 +2,7 @@
 
 ## Context
 
-This repository currently stores skills below `personal-os/` and uses a root-level `install.sh` that copies or symlinks the whole directory into a Hermes-specific location. The repository is intended to grow beyond the initial morning, night, and weekly skills and should be consumable by multiple Agent Skills-compatible harnesses.
+This repository currently stores skills below `personal-os/` and uses a root-level `install.sh` that copies or symlinks the whole directory into an agent-specific location. The repository is intended to grow beyond the initial morning, night, and weekly skills and should be consumable by multiple Agent Skills-compatible harnesses.
 
 The target convention follows the useful parts of `mattpocock/skills`: a top-level `skills/` directory, one skill per child directory, discovery through `SKILL.md`, and a development script that links each skill into the local harness directories.
 
@@ -14,7 +14,7 @@ The target convention follows the useful parts of `mattpocock/skills`: a top-lev
 - Forward every argument passed to `scripts/install.sh` to `npx skills add`, so interactive use and explicit CLI flags share one entry point.
 - Let `npx skills` discover supported installed agents and interactively choose skills, agents, and destinations instead of maintaining repository-specific lists.
 - Add `scripts/list-skills.sh` for local discovery.
-- Update documentation to describe a generic agent-skills repository rather than a Hermes-only Personal OS repository.
+- Update documentation and skill instructions to describe a generic agent-skills repository rather than an agent-specific Personal OS repository.
 - Preserve unrelated user changes already present in the working tree.
 
 ## Non-goals
@@ -43,7 +43,7 @@ The existing `category: personal-os` values remain skill metadata and are not ch
 
 ### `install.sh`
 
-The script resolves the repository root from its own location and delegates installation to the `npx skills` CLI with the repository path as a local source. The CLI discovers valid skills and supported agents, then lets the user select which skills and agents to install globally. Symlinks remain the CLI's recommended default installation method.
+The script resolves the repository root from its own location and delegates installation to the `npx skills` CLI with the repository path as a local source. The CLI discovers valid skills and supported agents, then lets the user select which skills, agents, and installation method to use globally. Symlinks are the recommended interactive method; `--copy` requests independent copies.
 
 The wrapper always supplies `--global`, skips only `npx`'s package-install confirmation, and forwards all remaining arguments unchanged:
 
@@ -79,7 +79,7 @@ Rewrite the README to:
 - explain that `npx skills` discovers supported harnesses and lets the user choose skills and agents interactively;
 - document `list-skills.sh`;
 - explain that all current and future skills are discovered automatically;
-- remove Hermes-only wording and the old `install.sh`/`personal-os` paths.
+- remove agent-specific wording and the old `install.sh`/`personal-os` paths.
 
 ## Verification
 
