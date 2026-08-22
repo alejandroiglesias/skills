@@ -11,7 +11,7 @@ The target convention follows the useful parts of `mattpocock/skills`: a top-lev
 - Rename `personal-os/` to `skills/`.
 - Make each directory below `skills/` an independently discoverable skill.
 - Replace the root installer with `scripts/link-skills.sh`, using the local-path and multi-agent support of the `npx skills` CLI.
-- Let `npx skills` discover supported installed agents and their destinations instead of maintaining a repository-specific destination list.
+- Let `npx skills` discover supported installed agents and interactively choose skills, agents, and destinations instead of maintaining repository-specific lists.
 - Add `scripts/list-skills.sh` for local discovery.
 - Update documentation to describe a generic agent-skills repository rather than a Hermes-only Personal OS repository.
 - Preserve unrelated user changes already present in the working tree.
@@ -42,15 +42,15 @@ The existing `category: personal-os` values remain skill metadata and are not ch
 
 ### `link-skills.sh`
 
-The script resolves the repository root from its own location and delegates installation to the `npx skills` CLI with the repository path as a local source. The CLI discovers every valid skill, installs all skills globally for all supported agents it detects, and uses symlinks by default.
+The script resolves the repository root from its own location and delegates installation to the `npx skills` CLI with the repository path as a local source. The CLI discovers valid skills and supported agents, then lets the user select which skills and agents to install globally. Symlinks remain the CLI's recommended default installation method.
 
 The script should:
 
 - use strict Bash settings;
 - work when invoked from any current working directory;
 - pass the repository path safely, including when it contains spaces;
-- be non-interactive in normal use (`npx --yes` plus the CLI's `--yes`);
-- request all discovered skills and all supported installed agents (`--all`);
+- skip only the package-install confirmation from `npx` (`npx --yes`), while preserving the CLI's interactive selection flow;
+- request global installation (`--global`);
 - leave destination discovery, symlink handling, and agent-specific paths to the CLI.
 
 This is intentionally a small repository wrapper around the skills CLI, not a second package manager. A repository update followed by rerunning the script is the supported synchronization flow. Unsupported custom harnesses remain outside the CLI's automatic discovery and would require a future adapter.
@@ -66,7 +66,7 @@ Rewrite the README to:
 - use a generic repository title and description;
 - document `skills/` and `scripts/`;
 - show `./scripts/link-skills.sh` as the primary command;
-- explain that `npx skills` discovers supported harnesses and their destinations;
+- explain that `npx skills` discovers supported harnesses and lets the user choose skills and agents interactively;
 - document `list-skills.sh`;
 - explain that all current and future skills are discovered automatically;
 - remove Hermes-only wording and the old `install.sh`/`personal-os` paths.
@@ -76,8 +76,8 @@ Rewrite the README to:
 Verification will use a temporary `HOME` so the real user skill directories are not changed. The checks will cover:
 
 1. `scripts/list-skills.sh` lists every current skill and no old `personal-os` path.
-2. `scripts/link-skills.sh` invokes `npx skills add` with the local repository, global scope, all skills, and non-interactive flags.
-3. In a controlled temporary home, the CLI creates the expected symlink installation for a supported agent.
+2. `scripts/link-skills.sh` invokes `npx skills add` with the local repository and global scope while preserving interactive selection.
+3. In a controlled temporary home, an explicitly selected supported agent receives the expected symlink installation.
 4. Re-running the link script is idempotent.
 5. Shell syntax checks pass.
 6. Git status confirms only intended repository files changed in addition to the user's pre-existing local changes.
