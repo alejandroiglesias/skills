@@ -1,13 +1,13 @@
 ---
 name: weekly
-description: Obsidian-assisted weekly interview that creates or updates the Weekly Note, defines Focus This Week, reads Daily Notes for patterns, extracts decisions, and prepares tasks for Sunsama.
+description: Obsidian-assisted weekly interview that creates or updates the Weekly Note, defines Focus This Week, reads Daily Notes for patterns, extracts decisions, and prepares concrete weekly tasks.
 version: 0.5.0
 author: Alejandro García Iglesias
 license: MIT
 platforms: [macos]
 metadata:
   hermes:
-    tags: [personal-os, weekly-review, weekly-focus, reflection, planning, obsidian, sunsama, interview-mode, voice-friendly]
+    tags: [personal-os, weekly-review, weekly-focus, reflection, planning, obsidian, interview-mode, voice-friendly]
     category: personal-os
 ---
 
@@ -33,7 +33,7 @@ If an `Operating Principles` note exists, use it only as stable background conte
 
 The weekly review is a temporary focus contract:
 
-> Esta semana estamos jugando este juego. Al final de la semana revisamos: ¿seguimos, ajustamos, cerramos o pausamos?
+> This is the game we are playing this week. At the end of the week, we review: continue, adjust, close, or pause.
 
 The assistant should not replace the user's voice. The assistant should guide the review, notice patterns, ask about omissions, define `Focus This Week`, and append a concise synthesis.
 
@@ -106,8 +106,8 @@ Extract patterns such as:
 - family/child presence
 - job applications and interviews
 - client conversations
-- Juana Casa / active client progress
-- Map Agency System progress
+- active client work
+- agency or service progress
 - agency/ads/content progress
 - technical practice
 - rabbit holes or overplanning
@@ -214,8 +214,8 @@ The previous weekly focus should be reviewed explicitly.
 Ask:
 
 ```markdown
-La semana pasada el foco era X.
-¿Sigue, cambia, se reduce, se pausa o se cierra?
+Last week's focus was X.
+Does it continue, change, narrow, pause, or close?
 ```
 
 ## Procedure
@@ -231,10 +231,10 @@ Do not overwhelm the user with raw context. Start with a small pattern preview.
 Example:
 
 ```markdown
-Antes de revisar, veo 3 señales de la semana:
-- Búsqueda laboral apareció varias veces, pero no siempre tuvo ejecución consistente.
-- El sueño desordenado parece impactar directamente en la mañana.
-- Juana Casa aparece como prioridad pero todavía necesita un próximo paso concreto.
+Before reviewing, I see 3 signals from the week:
+- Job search appeared several times, but execution was not always consistent.
+- Disrupted sleep seems to directly affect the morning.
+- Active client work appears as a priority but still needs a concrete next step.
 ```
 
 ### 2. Review last week's focus
@@ -263,7 +263,7 @@ Default normal flow:
 7. What are the current bottlenecks?
 8. What should stop or be reduced next week?
 9. What should be the `Focus This Week` for next week?
-10. What concrete tasks should go to Sunsama?
+10. What concrete tasks should become part of the weekly plan?
 
 For quick mode:
 
@@ -282,7 +282,7 @@ After open answers, ask about important omissions.
 Examples:
 
 ```markdown
-Juana Casa appeared in multiple Daily Notes, but I don't see a clear recorded advance.
+Client work appeared in multiple Daily Notes, but I don't see a clear recorded advance.
 Was the bottleneck clarity, time, resistance, or missing next step?
 ```
 
@@ -291,7 +291,7 @@ Sleep came up several times. Do you want to treat sleep as a protected operation
 ```
 
 ```markdown
-Map Agency System appeared as an opportunity. Should it stay active this week or be contained inside its existing blocks?
+An agency system appeared as an opportunity. Should it stay active this week or be contained inside its existing blocks?
 ```
 
 Do not accuse. Ask to classify:
@@ -334,18 +334,18 @@ Example:
 ```markdown
 ## Decisions for Next Week
 
-- Priorizar ingreso directo: búsqueda laboral + Juana Casa/agencia.
-- Usar el primer bloque útil del día para búsqueda laboral.
-- Definir la primera solución concreta para Juana Casa antes de seguir expandiendo ideas.
-- Limitar exploración IA a bloques explícitos y acotados.
-- No sumar nuevos frentes esta semana. Capturar ideas en Obsidian, pero no ejecutarlas.
-- Proteger sueño, entrenamiento/escalada y tiempo con Amir.
-- Usar la agenda como scaffold, no como prueba moral.
+- Prioritize direct income: job search + client work.
+- Use the first useful block of the day for job search.
+- Define the first concrete deliverable for a client project before expanding ideas further.
+- Limit AI exploration to explicit, time-boxed blocks.
+- Do not add new fronts this week. Capture ideas in Obsidian, but do not execute them.
+- Protect sleep, training/climbing, and personal recovery time.
+- Use the calendar as a scaffold, not a moral test.
 ```
 
-### 7. Create Tasks to Send to Sunsama
+### 7. Create Weekly Tasks
 
-Always include a `Tasks to Send to Sunsama` section.
+Always include a `Weekly Tasks` section.
 
 These should be concrete tasks, not reflections.
 
@@ -354,13 +354,13 @@ Recommended number: 3-8 max.
 Example:
 
 ```markdown
-## Tasks to Send to Sunsama
+## Weekly Tasks
 
-- [ ] Definir primera solución concreta para Juana Casa
-- [ ] Escribir frase mínima de posicionamiento del estudio/agencia
-- [ ] Aplicar a 3-5 trabajos por día hábil
-- [ ] Crear bloque limitado para exploración IA
-- [ ] Revisar gastos personales
+- [ ] Define the first concrete deliverable for a client project
+- [ ] Write a minimum positioning statement for the studio/agency
+- [ ] Apply to 3-5 jobs per business day
+- [ ] Create a limited block for AI exploration
+- [ ] Review personal expenses
 ```
 
 ### 8. Write to Obsidian
@@ -427,7 +427,7 @@ Always append this concise review section:
 ### Protect
 - 
 
-### Suggested Calendar/Sunsama Adjustments
+### Suggested Calendar Adjustments
 - 
 
 ---
@@ -435,7 +435,7 @@ Always append this concise review section:
 ## Decisions for Next Week
 - 
 
-## Tasks to Send to Sunsama
+## Weekly Tasks
 - [ ] 
 ```
 
@@ -443,7 +443,7 @@ Keep the synthesis sharp. Do not write an essay unless the user asks.
 
 ## Definitions
 
-### No sumar nuevos frentes
+### Do Not Add New Fronts
 
 This means:
 
@@ -459,11 +459,11 @@ It does not mean:
 
 It means:
 
-> La idea nueva se guarda, pero no toma el volante.
+> The new idea is captured, but it does not take the wheel.
 
 Examples of new fronts to avoid unless explicitly chosen:
 
-- Modelo IA + Cafecito
+- a new AI side project
 - a new SaaS
 - a new agency/service unrelated to current focus
 - a new automated system besides Map Agency
@@ -472,10 +472,10 @@ Examples of new fronts to avoid unless explicitly chosen:
 
 ## Output Format
 
-After writing, respond briefly:
+After writing, respond briefly in the user's language. Keep the summary labels in the same language as the user's response:
 
 ```markdown
-Listo. Creé/actualicé la Weekly Note y agregué el Weekly Interview.
+Done. Created/updated the Weekly Note and added the Weekly Interview.
 
 Focus this week: ...
 Top priority: ...
@@ -496,7 +496,7 @@ If writing fails, provide the exact Markdown block to paste.
 - Do not ignore family/child blocks or recovery.
 - Do not prescribe a more intense week after an anxious week by default.
 - Do not call a clarity-heavy week unproductive.
-- Do not pretend to have Sunsama/calendar access if unavailable.
+- Do not pretend to have calendar access if unavailable.
 - Do not just output in terminal if Obsidian writing is available.
 - Do not depend on a stale `Current Focus` note.
 
@@ -513,5 +513,5 @@ Before finishing, verify that you have:
 - extracted patterns, not just tasks
 - limited next week's priorities to 3
 - included Decisions for Next Week
-- included Tasks to Send to Sunsama
+- included Weekly Tasks
 - persisted the result in Obsidian or returned a paste-ready fallback

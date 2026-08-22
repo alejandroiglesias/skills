@@ -1,6 +1,6 @@
 ---
 name: basic-memory-vault-access
-description: Use for all access to Ale's Obsidian Second Brain vault.
+description: Use for all access to the user's Obsidian Second Brain vault.
 version: 1.0.0
 platforms: [macos, linux]
 metadata:
@@ -11,11 +11,11 @@ metadata:
 
 # Basic Memory Vault Access
 
-Use this skill whenever a task involves reading, searching, creating, editing, moving, or deleting anything in Ale's Obsidian **Second Brain** vault.
+Use this skill whenever a task involves reading, searching, creating, editing, moving, or deleting anything in the user's Obsidian **Second Brain** vault.
 
 ## Non-negotiable access rule
 
-The Basic Memory MCP server is the canonical access layer for the vault. Always use it for vault operations. Do **not** use direct filesystem tools against the underlying Obsidian/iCloud Markdown files unless Ale explicitly asks for direct file access.
+The Basic Memory MCP server is the canonical access layer for the vault. Always use it for vault operations. Do **not** use direct filesystem tools against the underlying Obsidian/iCloud Markdown files unless the user explicitly asks for direct file access.
 
 This applies even when:
 
@@ -54,7 +54,7 @@ Use the project/location parameters required by the connected MCP server; do not
 - Do not silently fall back to `read_file`, `write_file`, `patch`, `search_files`, or shell commands for vault content.
 - Do not claim Basic Memory was used unless the MCP tool call actually occurred.
 - Do not treat a successful local write as equivalent to a Basic Memory write.
-- If Basic Memory is unavailable or misconfigured, explain the blocker and ask whether Ale wants an explicit direct-filesystem fallback; do not silently bypass the rule.
+- If Basic Memory is unavailable or misconfigured, explain the blocker and ask whether the user wants an explicit direct-filesystem fallback; do not silently bypass the rule.
 - Keep the note useful and action-oriented; capturing a link should not automatically become a large research system.
 
 ## Verification checklist
@@ -62,4 +62,4 @@ Use the project/location parameters required by the connected MCP server; do not
 - [ ] Every vault read/search/write in this task used Basic Memory MCP.
 - [ ] The project was identified as `second-brain` or explicitly confirmed otherwise.
 - [ ] The final note was read back through Basic Memory MCP.
-- [ ] No direct filesystem access occurred unless Ale explicitly authorized it.
+- [ ] No direct filesystem access occurred unless the user explicitly authorized it.

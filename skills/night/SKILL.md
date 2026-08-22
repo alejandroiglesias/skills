@@ -34,7 +34,7 @@ Start from today’s plan and the current weekly focus:
 - `Morning Interview`
 - the current Weekly Note's `Focus This Week`
 - any `Tomorrow` or carryovers brought into today
-- calendar/Sunsama execution, if available
+- calendar and planning execution, if available
 
 The assistant should gently notice omissions. If the user does not mention something that was marked important today or belongs to the weekly focus, ask about it without blame.
 
@@ -114,14 +114,14 @@ Open with a compact summary of what the user intended today and what the weekly 
 Example:
 
 ```markdown
-Hoy habías marcado como importante:
-- búsqueda laboral
-- Juana Casa
+Today you had marked these as important:
+- job search
+- client work
 - Sales Check
 
-La weekly también marca como foco: ingreso directo + Juana Casa/agencia.
+The Weekly Note also marks this as a focus: direct income + client work.
 
-Vamos a cerrar el día sin juicio, sólo mirando qué pasó.
+Let's close the day without judgment, simply looking at what happened.
 ```
 
 ### 3. Ask one question at a time
@@ -150,8 +150,8 @@ If the user omits something previously marked important today or named in `Focus
 Example:
 
 ```markdown
-A la mañana Juana Casa figuraba como prioridad y también aparece en el foco semanal, pero no la nombraste.
-¿La hiciste, quedó pendiente, perdió prioridad o hubo resistencia?
+Client work was listed as a priority this morning and also appears in the weekly focus, but you did not mention it.
+Did you complete it, is it still pending, did it lose priority, or was there resistance?
 ```
 
 Offer categories:
@@ -168,7 +168,7 @@ If something has appeared repeatedly across days, name the pattern briefly.
 Example:
 
 ```markdown
-Esto apareció varios días. ¿Querés convertirlo en un primer paso más chico para mañana o sacarlo de prioridad por ahora?
+This has appeared on several days. Do you want to turn it into a smaller first step for tomorrow, or remove it from the current priority for now?
 ```
 
 ### 5. Distinguish sections clearly
@@ -253,10 +253,10 @@ If it is very late, prioritize sleep and make the review shorter.
 
 ## Output Format
 
-After writing, respond briefly:
+After writing, respond briefly in the user's language. Keep the summary labels in the same language as the user's response:
 
 ```markdown
-Listo. Actualicé tu Daily Note y agregué el Night Interview.
+Done. Updated your Daily Note and added the Night Interview.
 
 Weekly focus: ...
 Win principal: ...

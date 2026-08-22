@@ -35,7 +35,7 @@ Start from continuity:
 - unfinished or repeatedly postponed items
 - the current Weekly Note
 - the current Weekly Note's `Focus This Week` section
-- today's calendar/Sunsama context, if available
+- today's calendar and planning context, if available
 
 The current Weekly Note is the primary source of current focus.
 
@@ -129,10 +129,10 @@ Open with at most 3 bullets from prior context and weekly focus.
 Example:
 
 ```markdown
-Antes de arrancar, traigo continuidad:
-- Esta semana el foco es ingreso directo: búsqueda laboral + Juana Casa/agencia.
-- Ayer quedó pendiente definir el primer paso de Juana Casa.
-- También apareció el riesgo de perderte en exploración IA.
+Before we start, here is the continuity context:
+- This week's focus is direct income: job search + client work.
+- Defining the next client deliverable was still pending yesterday.
+- A risk also appeared: getting lost in AI exploration.
 ```
 
 Then ask whether those items still matter today, but do not ask a huge question all at once.
@@ -159,8 +159,8 @@ If the user omits something that was previously important or part of `Focus This
 Example:
 
 ```markdown
-La Weekly marca `Juana Casa/agencia` como foco, pero todavía no la nombraste hoy.
-¿Sigue vigente, queda pendiente, perdió prioridad o hay algo de resistencia ahí?
+The Weekly Note marks `client work` as a focus, but you have not mentioned it today.
+Is it still active, still pending, lower priority, or is there resistance around it?
 ```
 
 Do not assume failure. Offer categories:
@@ -172,7 +172,25 @@ Do not assume failure. Offer categories:
 - avoided/resistance
 - someday/not this week
 
-### 5. Distinguish sections clearly
+### 5. Check the first action for displacement
+
+Before accepting the proposed first action, cross-check it against the current Weekly Note:
+
+- `Not This Week`: the action is explicitly excluded from this week's execution.
+- `Risks to Watch`: the action matches a known displacement or avoidance pattern.
+- `Main Focus`, `Success Criteria`, and the week's priority tasks: the action does not move the active focus forward.
+- The action is framed as organizing, researching, building a tool, or doing a quick/easy batch mainly because it feels lighter than the harder priority.
+
+If there is a mismatch, surface it directly and without blame:
+
+```markdown
+[Action] appears in the Weekly Note as [out of focus / a risk / not a priority].
+Are you choosing it because it is today's best move, or because it feels lighter than [current priority]?
+```
+
+Do not reject the action automatically. If the user confirms it intentionally, record the reason and continue. Otherwise, return to a concrete 10-20 minute action that advances the current weekly focus.
+
+### 6. Distinguish sections clearly
 
 When writing the Daily Note, use these meanings:
 
@@ -190,14 +208,14 @@ Example:
 ```markdown
 ## Top Priorities
 - Move income-direct work forward.
-- Clarify the next concrete step for Juana Casa.
+- Clarify the next concrete step for a client deliverable.
 
 ## Important Tasks
 - [ ] Apply to 3 quality jobs.
-- [ ] Review Juana Casa notes and identify the first deliverable.
+- [ ] Review the client notes and identify the first deliverable.
 ```
 
-### 6. Write to Obsidian
+### 7. Write to Obsidian
 
 After the interview, use `/obsidian` to create or update today's Daily Note.
 
@@ -250,15 +268,15 @@ Avoid long essays.
 
 ## Output Format
 
-After writing, respond briefly in the user's language. For Ale's Spanish morning reviews, keep the final summary labels in Spanish (do not mix English labels with Spanish content):
+After writing, respond briefly in the user's language. Keep the summary labels in the same language as the user's response:
 
 ```markdown
-Listo. Creé/actualicé tu Daily Note y agregué el Morning Interview.
+Done. Created/updated your Daily Note and added the Morning Interview.
 
-Foco semanal: ...
-Foco principal: ...
-Primera acción: ...
-Cosa a evitar: ...
+Weekly focus: ...
+Main focus: ...
+First action: ...
+Thing to avoid: ...
 ```
 
 If writing fails, provide the exact Markdown block to paste.
@@ -284,5 +302,6 @@ Before finishing, verify that you have:
 - reduced blank-page friction
 - identified a main focus
 - chosen no more than 3 priorities
+- cross-checked the first action against the Weekly Note for displacement
 - defined a first action
 - persisted the result in Obsidian or returned a paste-ready fallback
