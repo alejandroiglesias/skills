@@ -40,6 +40,8 @@ The consent question should explicitly bundle the actions, for example:
 
 Confirmation of that proposal authorizes both actions. A request that authorizes only diagnosis, review, or the immediate correction does not authorize an `AGENTS.md` change.
 
+When running through Claude Code, the proposal must also disclose the conditional creation or update of a companion `CLAUDE.md` compatibility bridge.
+
 ## Resolving instruction scope
 
 Before writing, inspect every applicable `AGENTS.md` from the project root down to the affected area.
@@ -52,6 +54,21 @@ Before writing, inspect every applicable `AGENTS.md` from the project root down 
 - Never modify global instructions or files outside the project.
 
 If an existing instruction duplicates or contradicts the proposed rule, do not append blindly. Reuse the existing rule, refine it without duplication, or stop and ask the user when the conflict is substantive.
+
+## Claude Code compatibility bridge
+
+Claude Code reads `CLAUDE.md`, not `AGENTS.md`. When the current agent is running through Claude Code and the approved workflow creates or updates an `AGENTS.md`, ensure a companion `CLAUDE.md` in the same directory imports it.
+
+- If `CLAUDE.md` does not exist, create it with `@AGENTS.md`.
+- If it exists without a direct or equivalent import, add `@AGENTS.md` at the beginning and preserve all existing content.
+- If it already imports the applicable `AGENTS.md`, do not modify it.
+- Inspect the relevant import chain first. Do not add an import that would create a cycle.
+- Keep the bridge at the same hierarchical scope as the applicable `AGENTS.md`.
+- Do not infer that an Anthropic model is running through Claude Code; apply this rule only when the harness is known.
+
+The consent question in Claude Code should cover all conditional writes, for example:
+
+> Do you want me to correct this deviation, record a general rule in the applicable `AGENTS.md`, and ensure Claude Code loads it through a companion `CLAUDE.md`?
 
 ## Preventive-rule contract
 
@@ -78,7 +95,8 @@ Before completion, verify separately that:
 1. the underlying deviation is corrected;
 2. relevant tests or other controls pass;
 3. the preventive instruction is in the correct scope and does not duplicate or conflict with applicable instructions;
-4. the rule describes future behavior rather than narrating the past incident.
+4. the rule describes future behavior rather than narrating the past incident;
+5. when the Claude Code bridge applies, `CLAUDE.md` imports the correct `AGENTS.md` exactly once, preserves prior content, and introduces no import cycle.
 
 Do not claim durable prevention when the project is read-only or no project instruction file can be updated. In that case, report the limitation and provide the proposed rule.
 
@@ -107,6 +125,8 @@ For GREEN verification, repeat the same scenarios with the skill loaded. The exp
 - before consent, explain the evidence-backed deviation and request approval for correction plus prevention;
 - after consent, correct the cause and add a concise rule to the applicable `AGENTS.md`;
 - avoid silent instruction changes, incident narratives, global instructions, and scope expansion.
+
+Add Claude Code variants that verify creation of a missing companion `CLAUDE.md`, preservation of an existing file, import deduplication, correct nested scope, and cycle detection. Add a non-Claude-Code control to ensure the bridge is not created merely because the underlying model is Claude.
 
 If an agent finds a new rationalization or shortcut, refine the skill and rerun the scenario until the workflow remains compliant under pressure.
 
