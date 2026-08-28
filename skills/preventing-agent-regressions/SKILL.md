@@ -23,7 +23,7 @@ Typos, open decisions, and equally valid alternatives do not qualify.
 
 1. **Verify:** cite the conflicting evidence and explain the impact.
 2. **Propose:** ask to correct the cause and record a preventive rule in the applicable `AGENTS.md`. Under Claude Code, also disclose any required `CLAUDE.md` bridge.
-3. **Wait:** modify nothing until the user explicitly approves every proposed write. Prior wording counts only when it clearly authorizes all of them.
+3. **Wait:** perform only writes the user clearly authorizes. If correction is authorized but an `AGENTS.md` or `CLAUDE.md` write is not, complete only the authorized correction and explicitly request the missing consent. If no proposed write is authorized, wait.
 4. **Correct:** fix the root cause, preserve unrelated work, and add an in-scope mechanical guard when already covered by the approval.
 5. **Record:** update the most specific applicable `AGENTS.md`; use the root only for project-wide rules or when no applicable file exists.
 6. **Verify:** validate the correction, controls, instruction scope, duplication, conflicts, and imports separately.
@@ -36,7 +36,9 @@ Ask plainly:
 
 Inspect applicable `AGENTS.md` files from project root to the affected area. Integrate into a relevant section or add `## Preventing repeated deviations`.
 
-The rule must state future behavior, be actionable and verifiable, and use the narrowest supported scope. Never add blame, dates, incident history, vague reminders, duplicates, or speculative preferences. Stop and ask if instructions materially conflict.
+The rule must state future behavior, be actionable and verifiable, use the narrowest supported scope, and be the shortest instruction that preserves the necessary boundary. Never add blame, dates, incident history, vague reminders, duplicates, or speculative preferences. Stop and ask if instructions materially conflict.
+
+Never write project instructions outside the project. If the applicable project is read-only or unwritable, report the limitation, provide the exact proposed rule (and any proposed bridge change), and do not claim durable prevention.
 
 ## Claude Code bridge
 
@@ -46,6 +48,8 @@ Apply this only when the harness is known to be Claude Code, not merely because 
 - Existing without an equivalent import: prepend `@AGENTS.md` and preserve its content.
 - Already imported: leave it unchanged.
 - Import cycle possible: stop and ask.
+
+Before any bridge write, inspect the relevant `AGENTS.md` and `CLAUDE.md` import chain. Stop and ask if the proposed import would create a cycle.
 
 Include this conditional write in the consent request.
 
