@@ -4,3 +4,4 @@
 - Whenever a helper under `scripts/` is added, removed, renamed, or its behavior changes, update the README's Helper scripts section in the same change.
 - Before completing documentation changes, run `./scripts/list-skills.sh` and confirm that every discovered skill appears exactly once in the README.
 - For skills that change agent behavior, record a baseline without the skill and test the final version in independent contexts before installation; structural validation alone is insufficient.
+- When a skill writes shared project instructions, account for each supported runtime's discovery mechanism and keep bridge behavior, scope, and authorization consistent with equivalent skills.
