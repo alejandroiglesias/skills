@@ -68,11 +68,11 @@ If `/obsidian` cannot write to the note, return a copy-paste-ready Markdown bloc
 
 ## Interview Modes
 
-At the beginning, infer or ask for a mode:
+Use `deep` by default unless the user asks for another mode:
 
 - `quick`: 5 questions, for low-energy reviews
-- `normal`: 8 questions, default
-- `deep`: 10-12 questions, only when the user asks for it
+- `normal`: 8 questions, for a lighter review
+- `deep`: 10-12 questions, default
 
 Accept control commands at any time:
 
@@ -252,7 +252,7 @@ Do not assume that a carryover should continue. Ask whether it is still alive.
 
 ### 3. Ask one question at a time
 
-Default normal flow:
+Default deep reflection flow, before the Deep Layer pass:
 
 1. How was the week personally? Energy, sleep, body, mood, anxiety, family.
 2. What actually moved the needle?
@@ -262,8 +262,10 @@ Default normal flow:
 6. What opportunities are emerging?
 7. What are the current bottlenecks?
 8. What should stop or be reduced next week?
-9. What should be the `Focus This Week` for next week?
-10. What concrete tasks should become part of the weekly plan?
+
+In deep mode, do not ask planning questions yet. Run the Deep Layer pass after these reflections.
+
+For normal mode, compress the full reflection-and-planning arc into a lighter 8-question flow by combining adjacent questions and omitting the Deep Layer pass.
 
 For quick mode:
 
@@ -303,7 +305,24 @@ Do not accuse. Ask to classify:
 - avoided/resistance
 - not for this week
 
-### 5. Distinguish reflection from focus and decisions
+### 5. Run the Deep Layer pass in deep mode
+
+Before planning or making decisions, zoom out one abstraction level from the individual events and tasks.
+
+Look for a higher-level explanation that connects multiple observations or patterns across the week. Consider identity, agency, meaning, and underlying tensions: for example, what the user may be protecting, resisting, becoming, or trying to reconcile.
+
+Frame these connections as hypotheses, not diagnoses or settled truths. Offer them tentatively and give the user room to confirm, correct, reject, or deepen them.
+
+Do not force a profound insight when the evidence is weak. If no cross-pattern explanation is well supported, say so briefly and continue with planning based on the clearest observed patterns.
+
+Use only the hypotheses that survive this check to inform the weekly focus, decisions, constraints, or experiments.
+
+Only after this pass, continue with the planning questions one at a time:
+
+9. What should be the `Focus This Week` for next week?
+10. What concrete tasks should become part of the weekly plan?
+
+### 6. Distinguish reflection from focus and decisions
 
 The weekly note should preserve three layers:
 
@@ -315,7 +334,7 @@ The user reflection may contain subjective language.
 
 The assistant synthesis should be concise, strategic, and useful on Monday.
 
-### 6. Extract Decisions for Next Week
+### 7. Extract Decisions for Next Week
 
 Always include a `Decisions for Next Week` section.
 
@@ -343,7 +362,7 @@ Example:
 - Use the calendar as a scaffold, not a moral test.
 ```
 
-### 7. Create Weekly Tasks
+### 8. Create Weekly Tasks
 
 Always include a `Weekly Tasks` section.
 
@@ -363,7 +382,7 @@ Example:
 - [ ] Review personal expenses
 ```
 
-### 8. Write to Obsidian
+### 9. Write to Obsidian
 
 After the interview, use `/obsidian` to create or update the current Weekly Note.
 
@@ -509,6 +528,7 @@ Before finishing, verify that you have:
 - reviewed relevant Daily Notes from the week when available
 - asked questions one at a time
 - asked context-aware follow-ups about omissions
+- completed the Deep Layer pass before planning when using deep mode
 - defined `Focus This Week`
 - extracted patterns, not just tasks
 - limited next week's priorities to 3
