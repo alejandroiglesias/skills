@@ -9,6 +9,7 @@ Reusable skills for compatible coding agents. Each skill lives in its own direct
 | [`basic-memory-vault-access`](skills/basic-memory-vault-access/SKILL.md) | Routes all access to the user's Obsidian Second Brain through Basic Memory MCP, including verification and explicit fallback handling. |
 | [`composition-first-architecture`](skills/composition-first-architecture/SKILL.md) | Guides architecture toward reusing, composing, and adapting mature components before building custom infrastructure. |
 | [`eli5`](skills/eli5/SKILL.md) | Creates a simple, visual HTML explanation for someone with no prior knowledge of the topic. |
+| [`implement-plan-with-subagents`](skills/implement-plan-with-subagents/SKILL.md) | Executes an existing development plan through worker and reviewer subagents with passive waits and focused review rounds. |
 | [`morning`](skills/morning/SKILL.md) | Runs a context-aware morning interview and records priorities and direction in today's Obsidian Daily Note. |
 | [`night`](skills/night/SKILL.md) | Runs an end-of-day interview that compares plans with outcomes and prepares a smoother start for tomorrow. |
 | [`preventing-agent-regressions`](skills/preventing-agent-regressions/SKILL.md) | Turns verified, repeatable agent mistakes into corrected behavior and narrowly scoped project instructions. |
