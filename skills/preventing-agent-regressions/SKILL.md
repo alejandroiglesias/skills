@@ -1,5 +1,6 @@
 ---
 name: preventing-agent-regressions
+author: Alejandro Garcia Iglesias (@alejandroiglesias)
 description: Use when an agent or user identifies an evidence-backed deviation, drift, repeated mistake, or regression that could recur, before correcting it or updating project instructions such as AGENTS.md.
 ---
 

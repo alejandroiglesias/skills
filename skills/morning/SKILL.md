@@ -2,7 +2,7 @@
 name: morning
 description: Obsidian-assisted morning interview that creates or updates today's Daily Note from template, uses prior notes and the current Weekly Focus for continuity, and appends a concise Morning Review.
 version: 0.4.0
-author: Alejandro García Iglesias
+author: Alejandro Garcia Iglesias (@alejandroiglesias)
 license: MIT
 platforms: [macos]
 metadata:

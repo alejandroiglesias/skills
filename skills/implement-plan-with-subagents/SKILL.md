@@ -1,5 +1,6 @@
 ---
 name: implement-plan-with-subagents
+author: Alejandro Garcia Iglesias (@alejandroiglesias)
 description: Use when the user asks to execute an already-written development plan with worker and reviewer subagents in Codex.
 ---
 

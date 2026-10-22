@@ -1,5 +1,6 @@
 ---
 name: workflow-retrospective
+author: Alejandro Garcia Iglesias (@alejandroiglesias)
 description: Use when a substantial multi-step task has just completed or the user requests a retrospective, especially after repeated clarification, changed assumptions, delegation, rework, or newly discovered working practices.
 ---
 

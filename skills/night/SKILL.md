@@ -2,7 +2,7 @@
 name: night
 description: Obsidian-assisted night interview that compares today's plan and the weekly focus with what happened, captures wins/friction/tomorrow, and appends a concise Night Review.
 version: 0.4.0
-author: Alejandro García Iglesias
+author: Alejandro Garcia Iglesias (@alejandroiglesias)
 license: MIT
 platforms: [macos]
 metadata:

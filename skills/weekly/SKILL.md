@@ -2,7 +2,7 @@
 name: weekly
 description: Obsidian-assisted weekly interview that creates or updates the Weekly Note, defines Focus This Week, reads Daily Notes for patterns, extracts decisions, and prepares concrete weekly tasks.
 version: 0.5.0
-author: Alejandro García Iglesias
+author: Alejandro Garcia Iglesias (@alejandroiglesias)
 license: MIT
 platforms: [macos]
 metadata:

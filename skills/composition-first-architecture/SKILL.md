@@ -1,5 +1,6 @@
 ---
 name: composition-first-architecture
+author: Alejandro Garcia Iglesias (@alejandroiglesias)
 description: Design and implement software by composing mature existing pieces first, minimizing custom infrastructure, and concentrating proprietary code on the actual differentiating or missing capability.
 ---
 
