@@ -13,6 +13,7 @@ Reusable skills for compatible coding agents. Each skill lives in its own direct
 | [`morning`](skills/morning/SKILL.md) | Runs a context-aware morning interview and records priorities and direction in today's Obsidian Daily Note. |
 | [`night`](skills/night/SKILL.md) | Runs an end-of-day interview that compares plans with outcomes and prepares a smoother start for tomorrow. |
 | [`preventing-agent-regressions`](skills/preventing-agent-regressions/SKILL.md) | Turns verified, repeatable agent mistakes into corrected behavior and narrowly scoped project instructions. |
+| [`ub-mode`](skills/ub-mode/SKILL.md) | Applies Uncle Bob Martin's methodology: reduced principles for making code work, making it right, and following practice, including TDD, CRAP scores, duplication checks, and mutation testing. |
 | [`weekly`](skills/weekly/SKILL.md) | Guides a weekly review, identifies patterns, defines the week's focus, and turns decisions into concrete tasks. |
 | [`workflow-retrospective`](skills/workflow-retrospective/SKILL.md) | Extracts durable collaboration and workflow lessons after substantial work and proposes approved updates to project instructions. |
 
