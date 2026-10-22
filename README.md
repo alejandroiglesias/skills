@@ -28,6 +28,7 @@ skills/
 scripts/
   install.sh
   list-skills.sh
+  test-skill-size.sh
 ```
 
 The repository is not limited to the skills that currently exist. Add a new `skills/<skill-name>/SKILL.md` directory and the CLI will discover it automatically.
@@ -38,6 +39,7 @@ The repository is not limited to the skills that currently exist. Add a new `ski
 | --- | --- |
 | [`scripts/install.sh`](scripts/install.sh) | Installs skills from this checkout globally with the `skills` CLI and forwards any additional CLI arguments. |
 | [`scripts/list-skills.sh`](scripts/list-skills.sh) | Prints a sorted list of every `SKILL.md` discovered under `skills/`, from any working directory. |
+| [`scripts/test-skill-size.sh`](scripts/test-skill-size.sh) | Fails when any discovered `SKILL.md` reaches 20,000 bytes. |
 
 ## Install
 
@@ -79,6 +81,18 @@ List every discovered skill from any working directory:
 ```
 
 The output contains sorted repository-relative paths in the form `skills/<skill-name>/SKILL.md`.
+
+## Validate skill size
+
+After adding or changing any skill, agents must run the size check before completing the work:
+
+```bash
+./scripts/test-skill-size.sh
+```
+
+The check fails when any `SKILL.md` under `skills/` reaches 20,000 bytes, including nested skills and excluding `node_modules`. Move supporting detail into the skill's `references/` directory when needed. Adapted from [Superpowers' skill-size test](https://github.com/obra/superpowers/blob/main/tests/skill-size/test-skill-size.sh).
+
+The script resolves the repository from its own location, so it can also be invoked by absolute path from any working directory. Passing this check does not replace behavioral testing for skills that change agent behavior; see [AGENTS.md](AGENTS.md).
 
 ## Create a skill
 
